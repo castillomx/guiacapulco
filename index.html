@@ -19,22 +19,7 @@
         .card-modern { transition: all 0.4s ease; border: 1px solid #eef2f6; }
         .card-modern:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(30, 27, 75, 0.15); }
         
-        .banner-promo { 
-            background: linear-gradient(90deg, #fb7185 0%, #f43f5e 100%); 
-            box-shadow: 0 -4px 15px rgba(244, 63, 94, 0.3);
-            font-size: 1.1rem !important; font-weight: 900; text-transform: uppercase;
-        }
-
-        .star-active { color: #f59e0b; }
-        .star-inactive { color: #e2e8f0; }
-
-        /* EFECTO GLOW PARA CATEGORÍAS */
-        .btn-fiscal:hover { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6); }
-        .btn-comida:hover { box-shadow: 0 0 20px rgba(249, 115, 22, 0.6); }
-        .btn-tecnico:hover { box-shadow: 0 0 20px rgba(16, 185, 129, 0.6); }
-        .btn-turismo:hover { box-shadow: 0 0 20px rgba(6, 182, 212, 0.6); }
-        .btn-comercio:hover { box-shadow: 0 0 20px rgba(139, 92, 246, 0.6); }
-        .btn-eventos:hover { box-shadow: 0 0 20px rgba(236, 72, 153, 0.6); }
+        .btn-cat:hover { box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); transform: translateY(-2px); }
 
         .sticky-share {
             position: fixed; right: 20px; top: 50%;
@@ -47,15 +32,19 @@
             color: white; font-size: 1.5rem; transition: all 0.3s ease;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
-        .share-btn:hover { transform: translateX(-5px); filter: brightness(1.1); }
     </style>
 </head>
 <body class="text-slate-900">
 
-    <div class="sticky-share hidden md:flex">
-        <button onclick="shareOnWhatsApp()" class="share-btn bg-emerald-500" title="WhatsApp"><i class="fab fa-whatsapp"></i></button>
-        <button onclick="shareOnFacebook()" class="share-btn bg-blue-600" title="Facebook"><i class="fab fa-facebook-f"></i></button>
-        <button onclick="shareNative()" class="share-btn bg-indigo-600" title="Compartir"><i class="fas fa-share-alt"></i></button>
+    <div id="modalQR" class="fixed inset-0 z-[200] hidden flex items-center justify-center p-6 bg-indigo-950/90 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-sm rounded-[3rem] p-8 text-center shadow-2xl">
+            <h3 id="qrNombre" class="text-xl font-black text-indigo-950 uppercase mb-2 italic">Nombre del Negocio</h3>
+            <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest mb-6 text-black">Escanea para contactar</p>
+            <div class="bg-slate-50 p-4 rounded-3xl inline-block mb-6 border border-slate-100">
+                <img id="qrImagen" src="" alt="Código QR" class="w-48 h-48 mx-auto">
+            </div>
+            <button onclick="cerrarQR()" class="w-full bg-indigo-950 text-white py-4 rounded-2xl font-black uppercase tracking-widest text-xs">Cerrar</button>
+        </div>
     </div>
 
     <nav class="glass border-b border-slate-100 sticky top-0 z-50 px-6 py-4">
@@ -78,17 +67,16 @@
             </div>
 
             <div class="flex flex-wrap justify-center gap-3 mb-10">
-                <button onclick="filtrarPorCategoria('Asesoría Contable')" class="btn-fiscal bg-blue-600 px-5 py-2.5 rounded-full text-[11px] font-bold uppercase transition-all shadow-lg border border-white/20">Fiscal</button>
-                <button onclick="filtrarPorCategoria('Gastronomía')" class="btn-comida bg-orange-500 px-5 py-2.5 rounded-full text-[11px] font-bold uppercase transition-all shadow-lg border border-white/20">Comida</button>
-                <button onclick="filtrarPorCategoria('Servicios Técnicos')" class="btn-tecnico bg-emerald-500 px-5 py-2.5 rounded-full text-[11px] font-bold uppercase transition-all shadow-lg border border-white/20">Técnicos</button>
-                <button onclick="filtrarPorCategoria('Turismo')" class="btn-turismo bg-cyan-500 px-5 py-2.5 rounded-full text-[11px] font-bold uppercase transition-all shadow-lg border border-white/20">Turismo</button>
-                <button onclick="filtrarPorCategoria('Comercio')" class="btn-comercio bg-purple-500 px-5 py-2.5 rounded-full text-[11px] font-bold uppercase transition-all shadow-lg border border-white/20">Comercio</button>
-                <button onclick="filtrarPorCategoria('Decoración y Eventos Sociales')" class="btn-eventos bg-pink-500 px-5 py-2.5 rounded-full text-[11px] font-bold uppercase transition-all shadow-lg border border-white/20">Eventos</button>
+                <button onclick="filtrarPorCategoria('Asesoría Contable')" class="btn-cat bg-blue-600 px-5 py-2.5 rounded-full text-[11px] font-bold uppercase transition-all shadow-lg border border-white/20">Fiscal</button>
+                <button onclick="filtrarPorCategoria('Gastronomía')" class="btn-cat bg-orange-500 px-5 py-2.5 rounded-full text-[11px] font-bold uppercase transition-all shadow-lg border border-white/20">Comida</button>
+                <button onclick="filtrarPorCategoria('Servicios Técnicos')" class="btn-cat bg-emerald-500 px-5 py-2.5 rounded-full text-[11px] font-bold uppercase transition-all shadow-lg border border-white/20">Técnicos</button>
+                <button onclick="filtrarPorCategoria('Turismo')" class="btn-cat bg-cyan-500 px-5 py-2.5 rounded-full text-[11px] font-bold uppercase transition-all shadow-lg border border-white/20">Turismo</button>
+                <button onclick="filtrarPorCategoria('Comercio')" class="btn-cat bg-purple-500 px-5 py-2.5 rounded-full text-[11px] font-bold uppercase transition-all shadow-lg border border-white/20">Comercio</button>
+                <button onclick="filtrarPorCategoria('Decoración y Eventos Sociales')" class="btn-cat bg-pink-500 px-5 py-2.5 rounded-full text-[11px] font-bold uppercase transition-all shadow-lg border border-white/20">Eventos</button>
             </div>
             
             <div class="flex flex-wrap justify-center gap-4">
                 <button onclick="mostrarNegocios(negocios)" class="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-2xl text-xs font-black uppercase tracking-widest border border-white/30 transition-all">Ver Todo</button>
-                <button onclick="verSoloOfertas()" class="bg-rose-500 hover:bg-rose-600 text-white px-8 py-4 rounded-2xl text-xs font-black uppercase tracking-widest shadow-xl transition-all">Ofertas Especiales</button>
                 <button onclick="window.open('https://www.google.com/maps/d/edit?mid=1U2JhlxltjjMdVSRIo4z-qBmIHlv3UPc&usp=sharing', '_blank')" class="bg-cyan-500 hover:bg-cyan-400 text-white px-8 py-4 rounded-2xl text-xs font-black uppercase tracking-widest shadow-xl transition-all border border-cyan-300/30">
                     <i class="fas fa-map-marked-alt mr-2"></i> Playas y Lugares en Acapulco,gro.
                 </button>
@@ -96,110 +84,97 @@
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto -mt-12 px-6 pb-24 relative z-20">
+    <main class="max-w-7xl mx-auto -mt-12 px-6 pb-24 relative z-20 text-black">
         <h2 class="text-xs font-black uppercase tracking-widest text-indigo-900 bg-white px-6 py-3 rounded-xl shadow-sm border border-slate-100 inline-block mb-10" id="currentFilterText">Negocios Destacados</h2>
-        <div id="contenedorNegocios" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
+        <div id="contenedorNegocios" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 text-black"></div>
     </main>
 
     <footer class="bg-white border-t border-slate-100 py-16 text-center text-black">
         <p class="text-indigo-950 font-bold mb-2 uppercase text-xs">© 2026 GuíaAca Acapulco</p>
         <p class="text-slate-400 text-[10px] mb-8 uppercase tracking-widest italic text-black">Proyecto de Tesis Profesional</p>
-        <button onclick="toggleModal()" class="text-indigo-600 text-[10px] font-black uppercase hover:underline">Aviso de Privacidad</button>
     </footer>
-
-    <div id="modalPrivacidad" class="fixed inset-0 z-[150] hidden flex items-center justify-center p-6 bg-indigo-950/80 backdrop-blur-md text-black">
-        <div class="bg-white w-full max-w-xl rounded-[2.5rem] p-12 text-center shadow-2xl text-black">
-            <h3 class="text-xl font-black text-indigo-950 uppercase mb-4 italic">Seguridad de Datos</h3>
-            <p class="text-slate-600 text-sm mb-8 leading-relaxed italic">Información comercial protegida para fines comerciales y académicos.</p>
-            <button onclick="toggleModal()" class="w-full bg-indigo-950 text-white py-4 rounded-2xl font-black uppercase tracking-widest transition shadow-lg">Cerrar</button>
-        </div>
-    </div>
 
     <script>
         const defaultImages = {
             "Asesoría Contable": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500",
             "Gastronomía": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500",
-            "Turismo": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=500",
             "Comercio": "https://images.unsplash.com/photo-1534723452862-4c874018d66d?w=500",
-            "Servicios Técnicos": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=500",
+            "Servicios Técnicos": "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=500",
             "Decoración y Eventos Sociales": "https://images.unsplash.com/photo-1519741497674-611481863552?w=500"
         };
 
         const negocios = [
-            { nombre: "Decoraciones y Sorpresas Ana Lizbeth", categoria: "Decoración y Eventos Sociales", descripcion: "Creamos sensaciones y sonrisas perdurables en cada uno de tus eventos.", zona: "Rinconada Luis Donaldo Colosio", tel: "7442211689", img: "img/analizbeth.jpg", social: "WhatsApp / Facebook", rating: "5", oferta: "No" },
-            { nombre: "Papeleria, Internet y miscelanea Paty", categoria: "Comercio", descripcion: "venta de artículos de papelería, miscelánea, impresiones, copias.", zona: "Granjas del Marqués", tel: "7444433601", img: "img/papepaty.jpg", social: "WhatsApp", rating: "5", oferta: "" },
-            { nombre: "Papeleria Confi", categoria: "Comercio", descripcion: "venta de artículos de papelería y escolar, copias, impresiones, escaneos.", zona: "Granjas del Marqués", tel: "7444296350", img: "img/papeconfi.jpg", social: "WhatsApp", rating: "5", oferta: "" },
-            { nombre: "Peluqueria mercado de la Colosio", categoria: "Comercio", descripcion: "cortes de cabello profesional para toda la familia.", zona: "Mártires de La Democracia", tel: "0", img: "img/peluquero.jpg", social: "Local Físico", rating: "4", oferta: "" },
-            { nombre: "Venta de jugo de naranja fresca", categoria: "Comercio", descripcion: "venta de jugo de naranja recién exprimido en bolsa o vaso.", zona: "Av. Luis Donaldo Colosio", tel: "0", img: "img/jugos.jpg", social: "Puesto local", rating: "5", oferta: "" }
+            { nombre: "Decoraciones y Sorpresas Ana Lizbeth", categoria: "Decoración y Eventos Sociales", descripcion: "Creamos sensaciones y sonrisas perdurables en tus eventos.", zona: "Luis Donaldo Colosio", tel: "7442211689", img: "img/analizbeth.jpg", social: "WhatsApp", rating: "5" },
+            { nombre: "Papeleria Paty", categoria: "Comercio", descripcion: "Artículos de papelería, internet e impresiones.", zona: "Granjas del Marqués", tel: "7444433601", img: "img/papepaty.jpg", social: "WhatsApp", rating: "5" },
+            { nombre: "Peluqueria mercado de la Colosio", categoria: "Comercio", descripcion: "Cortes de cabello profesional.", zona: "Mártires de La Democracia", tel: "0", img: "img/peluquero.jpg", social: "Local Físico", rating: "4" },
+            { nombre: "Venta de jugo de naranja fresca", categoria: "Comercio", descripcion: "Jugo recién exprimido.", zona: "Av. Luis Donaldo Colosio", tel: "0", img: "img/jugos.jpg", social: "Puesto local", rating: "5" }
         ];
 
-        function filtrarPorCategoria(cat) {
-            const filtrados = negocios.filter(n => n.categoria === cat);
-            mostrarNegocios(filtrados, cat);
-            window.scrollTo({ top: 550, behavior: 'smooth' });
+        function generarQR(tel, nombre) {
+            const modal = document.getElementById('modalQR');
+            const imgQR = document.getElementById('qrImagen');
+            const txtNombre = document.getElementById('qrNombre');
+            
+            const waUrl = `https://wa.me/52${tel}`;
+            const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(waUrl)}`;
+            
+            imgQR.src = qrApiUrl;
+            txtNombre.innerText = nombre;
+            modal.classList.remove('hidden');
         }
 
-        function generarEstrellas(num) {
-            let estrellas = '';
-            for (let i = 1; i <= 5; i++) { estrellas += `<i class="fas fa-star ${i <= num ? 'star-active' : 'star-inactive'}"></i>`; }
-            return estrellas;
-        }
-
-        function getColorByCat(cat) {
-            const colors = { "Asesoría Contable": "text-blue-600 bg-blue-50", "Gastronomía": "text-orange-600 bg-orange-50", "Servicios Técnicos": "text-emerald-600 bg-emerald-50", "Turismo": "text-cyan-600 bg-cyan-50", "Comercio": "text-purple-600 bg-purple-50", "Decoración y Eventos Sociales": "text-pink-600 bg-pink-50" };
-            return colors[cat] || "text-slate-600 bg-slate-50";
+        function cerrarQR() {
+            document.getElementById('modalQR').classList.add('hidden');
         }
 
         function mostrarNegocios(lista, label = "Negocios Destacados") {
             const contenedor = document.getElementById('contenedorNegocios');
             contenedor.innerHTML = '';
             document.getElementById('currentFilterText').innerText = label;
+
             lista.forEach(n => {
                 const imgFinal = n.img || defaultImages[n.categoria] || defaultImages["Comercio"];
                 const colorCat = getColorByCat(n.categoria);
                 const queryMap = encodeURIComponent(n.nombre + ' ' + n.zona + ' Acapulco');
                 
-                // VALIDACIÓN DE TELÉFONO PARA MOSTRAR U OCULTAR BOTÓN
                 const hasWhatsApp = n.tel && n.tel !== "0" && n.tel.trim() !== "";
-                
+
                 const botonesHTML = hasWhatsApp ? `
-                    <div class="grid grid-cols-2 gap-4">
-                        <a href="https://wa.me/52${n.tel}" target="_blank" class="flex items-center justify-center bg-emerald-500 text-white py-4 rounded-2xl font-black text-[10px] uppercase shadow-lg hover:bg-emerald-600 transition">WhatsApp</a>
-                        <a href="https://www.google.com/maps/search/${queryMap}" target="_blank" class="flex items-center justify-center bg-slate-50 text-indigo-900 py-4 rounded-2xl font-black text-[10px] uppercase italic border border-slate-200 hover:bg-slate-100 transition">Mapa</a>
+                    <div class="grid grid-cols-2 gap-3 mb-3">
+                        <a href="https://wa.me/52${n.tel}" target="_blank" class="flex items-center justify-center bg-emerald-500 text-white py-4 rounded-2xl font-black text-[9px] uppercase shadow-lg">WhatsApp</a>
+                        <button onclick="generarQR('${n.tel}', '${n.nombre}')" class="flex items-center justify-center bg-indigo-100 text-indigo-950 py-4 rounded-2xl font-black text-[9px] uppercase border border-indigo-200"><i class="fas fa-qrcode mr-2"></i> QR Negocio</button>
                     </div>
+                    <a href="https://www.google.com/maps/search/$" target="_blank" class="w-full flex items-center justify-center bg-slate-50 text-indigo-900 py-4 rounded-2xl font-black text-[9px] uppercase border border-slate-200 italic">Ver en Mapa</a>
                 ` : `
-                    <div class="flex justify-center">
-                        <a href="https://www.google.com/maps/search/${queryMap}" target="_blank" class="w-full flex items-center justify-center bg-slate-50 text-indigo-900 py-4 rounded-2xl font-black text-[10px] uppercase italic border border-slate-200 hover:bg-slate-100 transition">Mapa</a>
-                    </div>
+                    <a href="https://www.google.com/maps/search/$" target="_blank" class="w-full flex items-center justify-center bg-slate-50 text-indigo-900 py-4 rounded-2xl font-black text-[9px] uppercase border border-slate-200 italic">Ver en Mapa</a>
                 `;
 
                 contenedor.innerHTML += `
                     <div class="bg-white rounded-[2.5rem] shadow-sm card-modern overflow-hidden group text-black">
-                        <div class="h-64 overflow-hidden relative">
+                        <div class="h-60 overflow-hidden relative">
                             <img src="${imgFinal}" class="w-full h-full object-cover group-hover:scale-110 transition-all duration-700">
-                            <div class="absolute top-5 left-5"><span class="${colorCat} text-[10px] font-black px-4 py-2 rounded-xl uppercase shadow-xl">${n.categoria}</span></div>
+                            <div class="absolute top-5 left-5"><span class="${colorCat} text-[9px] font-black px-4 py-2 rounded-xl uppercase shadow-xl">${n.categoria}</span></div>
                         </div>
-                        <div class="p-10 text-left">
-                            <h3 class="text-xl font-black mb-1 text-indigo-950 uppercase italic tracking-tighter">${n.nombre}</h3>
-                            <div class="mb-4 text-[10px]">${generarEstrellas(n.rating)} <span class="ml-2 text-slate-400 font-bold uppercase italic">${n.social || 'Contacto'}</span></div>
-                            <p class="text-slate-500 text-sm leading-relaxed mb-6 font-medium italic line-clamp-2">${n.descripcion}</p>
-                            <div class="flex items-center text-slate-400 text-[11px] font-bold mb-8 uppercase tracking-widest"><i class="fas fa-location-dot mr-2 text-rose-400"></i> ${n.zona}</div>
+                        <div class="p-8 text-left">
+                            <h3 class="text-lg font-black mb-1 text-indigo-950 uppercase italic tracking-tighter">${n.nombre}</h3>
+                            <p class="text-slate-500 text-xs leading-relaxed mb-6 font-medium italic line-clamp-2">${n.descripcion}</p>
+                            <div class="flex items-center text-slate-400 text-[10px] font-bold mb-6 uppercase tracking-widest"><i class="fas fa-location-dot mr-2 text-rose-400"></i> ${n.zona}</div>
                             ${botonesHTML}
                         </div>
                     </div>`;
             });
         }
 
-        function shareOnWhatsApp() { window.open(`https://wa.me/?text=${encodeURIComponent("¡Mira este Directorio Inteligente! " + window.location.href)}`, '_blank'); }
-        function shareOnFacebook() { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank'); }
-        async function shareNative() { if (navigator.share) { try { await navigator.share({ title: 'GuíaAca Pro', url: window.location.href }); } catch (err) {} } }
-        function toggleModal() { document.getElementById('modalPrivacidad').classList.toggle('hidden'); }
+        function filtrarPorCategoria(cat) {
+            const filtrados = negocios.filter(n => n.categoria === cat);
+            mostrarNegocios(filtrados, cat);
+            window.scrollTo({ top: 500, behavior: 'smooth' });
+        }
 
-        document.getElementById('inputBusqueda').addEventListener('input', (e) => {
-            const t = e.target.value.toLowerCase();
-            const filtrados = negocios.filter(n => n.nombre.toLowerCase().includes(t) || n.zona.toLowerCase().includes(t));
-            mostrarNegocios(filtrados, t ? `Resultados: "${t}"` : "Negocios Destacados");
-        });
+        function getColorByCat(cat) {
+            const colors = { "Asesoría Contable": "text-blue-600 bg-blue-50", "Gastronomía": "text-orange-600 bg-orange-50", "Servicios Técnicos": "text-emerald-600 bg-emerald-50", "Turismo": "text-cyan-600 bg-cyan-50", "Comercio": "text-purple-600 bg-purple-50", "Decoración y Eventos Sociales": "text-pink-600 bg-pink-50" };
+            return colors[cat] || "text-slate-600 bg-slate-50";
+        }
 
         mostrarNegocios(negocios);
     </script>
