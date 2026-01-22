@@ -129,8 +129,8 @@
             { nombre: "Decoraciones y Sorpresas Ana Lizbeth", categoria: "Decoración y Eventos Sociales", descripcion: "Creamos sensaciones y sonrisas perdurables en cada uno de tus eventos.", zona: "Rinconada Luis Donaldo Colosio", tel: "7442211689", img: "img/analizbeth.jpg", social: "WhatsApp / Facebook", rating: "5", oferta: "No" },
             { nombre: "Papeleria, Internet y miscelanea Paty", categoria: "Comercio", descripcion: "venta de artículos de papelería, miscelánea, impresiones, copias.", zona: "Granjas del Marqués", tel: "7444433601", img: "img/papepaty.jpg", social: "WhatsApp", rating: "5", oferta: "" },
             { nombre: "Papeleria Confi", categoria: "Comercio", descripcion: "venta de artículos de papelería y escolar, copias, impresiones, escaneos.", zona: "Granjas del Marqués", tel: "7444296350", img: "img/papeconfi.jpg", social: "WhatsApp", rating: "5", oferta: "" },
-            { nombre: "Peluqueria mercado de la Colosio", categoria: "Comercio", descripcion: "cortes de cabello profesional para toda la familia.", zona: "Mártires de La Democracia", tel: "7440000000", img: "img/peluquero.jpg", social: "Local Físico", rating: "4", oferta: "" },
-            { nombre: "Venta de jugo de naranja fresca", categoria: "Comercio", descripcion: "venta de jugo de naranja recién exprimido en bolsa o vaso.", zona: "Av. Luis Donaldo Colosio", tel: "7440000000", img: "img/jugos.jpg", social: "Puesto local", rating: "5", oferta: "" }
+            { nombre: "Peluqueria mercado de la Colosio", categoria: "Comercio", descripcion: "cortes de cabello profesional para toda la familia.", zona: "Mártires de La Democracia", tel: "0", img: "img/peluquero.jpg", social: "Local Físico", rating: "4", oferta: "" },
+            { nombre: "Venta de jugo de naranja fresca", categoria: "Comercio", descripcion: "venta de jugo de naranja recién exprimido en bolsa o vaso.", zona: "Av. Luis Donaldo Colosio", tel: "0", img: "img/jugos.jpg", social: "Puesto local", rating: "5", oferta: "" }
         ];
 
         function filtrarPorCategoria(cat) {
@@ -159,6 +159,20 @@
                 const colorCat = getColorByCat(n.categoria);
                 const queryMap = encodeURIComponent(n.nombre + ' ' + n.zona + ' Acapulco');
                 
+                // VALIDACIÓN DE TELÉFONO PARA MOSTRAR U OCULTAR BOTÓN
+                const hasWhatsApp = n.tel && n.tel !== "0" && n.tel.trim() !== "";
+                
+                const botonesHTML = hasWhatsApp ? `
+                    <div class="grid grid-cols-2 gap-4">
+                        <a href="https://wa.me/52${n.tel}" target="_blank" class="flex items-center justify-center bg-emerald-500 text-white py-4 rounded-2xl font-black text-[10px] uppercase shadow-lg hover:bg-emerald-600 transition">WhatsApp</a>
+                        <a href="https://www.google.com/maps/search/${queryMap}" target="_blank" class="flex items-center justify-center bg-slate-50 text-indigo-900 py-4 rounded-2xl font-black text-[10px] uppercase italic border border-slate-200 hover:bg-slate-100 transition">Mapa</a>
+                    </div>
+                ` : `
+                    <div class="flex justify-center">
+                        <a href="https://www.google.com/maps/search/${queryMap}" target="_blank" class="w-full flex items-center justify-center bg-slate-50 text-indigo-900 py-4 rounded-2xl font-black text-[10px] uppercase italic border border-slate-200 hover:bg-slate-100 transition">Mapa</a>
+                    </div>
+                `;
+
                 contenedor.innerHTML += `
                     <div class="bg-white rounded-[2.5rem] shadow-sm card-modern overflow-hidden group text-black">
                         <div class="h-64 overflow-hidden relative">
@@ -170,10 +184,7 @@
                             <div class="mb-4 text-[10px]">${generarEstrellas(n.rating)} <span class="ml-2 text-slate-400 font-bold uppercase italic">${n.social || 'Contacto'}</span></div>
                             <p class="text-slate-500 text-sm leading-relaxed mb-6 font-medium italic line-clamp-2">${n.descripcion}</p>
                             <div class="flex items-center text-slate-400 text-[11px] font-bold mb-8 uppercase tracking-widest"><i class="fas fa-location-dot mr-2 text-rose-400"></i> ${n.zona}</div>
-                            <div class="grid grid-cols-2 gap-4">
-                                <a href="https://wa.me/52${n.tel}" target="_blank" class="flex items-center justify-center bg-emerald-500 text-white py-4 rounded-2xl font-black text-[10px] uppercase shadow-lg hover:bg-emerald-600 transition">WhatsApp</a>
-                                <a href="https://www.google.com/maps/search/${queryMap}" target="_blank" class="flex items-center justify-center bg-slate-50 text-indigo-900 py-4 rounded-2xl font-black text-[10px] uppercase italic border border-slate-200 hover:bg-slate-100 transition">Mapa</a>
-                            </div>
+                            ${botonesHTML}
                         </div>
                     </div>`;
             });
@@ -194,6 +205,3 @@
     </script>
 </body>
 </html>
-
-
-
