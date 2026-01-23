@@ -15,7 +15,7 @@
         .business-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.1); border-color: var(--elegant-gold); }
         .business-desc { font-size: 0.9rem; line-height: 1.6; color: #475569; min-height: 80px; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
         .comment-box { background: #f8fafc; border-radius: 12px; padding: 10px; margin-top: 8px; font-size: 0.8rem; border-left: 3px solid var(--elegant-gold); }
-        .btn-category { transition: all 0.3s ease; text-transform: uppercase; font-size: 0.65rem; font-weight: 800; letter-spacing: 1px; border-radius: 10px; }
+        .btn-category { transition: all 0.3s ease; text-transform: uppercase; font-size: 0.65rem; font-weight: 800; letter-spacing: 1px; border-radius: 12px; }
         .weather-badge { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; }
     </style>
 </head>
@@ -33,7 +33,7 @@
         <div class="bg-white w-full max-w-md rounded-[2rem] p-8 shadow-2xl">
             <div class="flex justify-between items-center mb-6">
                 <h3 class="text-xl font-bold uppercase tracking-tight">Publicar Clasificado</h3>
-                <button onclick="cerrarModalClasificado()" class="text-slate-400 hover:text-slate-900 text-2xl">&times;</button>
+                <button onclick="cerrarModalClasificado()" class="text-slate-400 hover:text-slate-900 text-2xl">×</button>
             </div>
             <form id="formClasificado" class="space-y-4">
                 <input type="text" id="claNombre" placeholder="Nombre del Prestador" class="w-full p-3 border rounded-xl outline-none" required>
@@ -65,20 +65,23 @@
 
         <h1 class="text-4xl md:text-6xl font-extrabold mb-10 italic uppercase drop-shadow-2xl">Directorio <span class="text-amber-400">Inteligente</span> Acapulco</h1>
 
-        <div class="flex flex-wrap justify-center gap-3 mb-10">
-            <button onclick="filtrarPorCategoria('Asesoría Contable')" class="btn-category px-6 py-3 bg-blue-700 text-white">📑 Fiscal</button>
-            <button onclick="filtrarPorCategoria('Gastronomía')" class="btn-category px-6 py-3 bg-orange-500 text-white">🥘 Comida</button>
-            <button onclick="filtrarPorCategoria('Turismo')" class="btn-category px-6 py-3 bg-teal-600 text-white">🏝️ Turismo</button>
-            <button onclick="abrirModalClasificado()" class="btn-category px-6 py-3 bg-purple-700 text-white animate-pulse"><i class="fas fa-plus mr-2"></i> Nuevo Clasificado</button>
+        <div class="flex flex-wrap justify-center gap-3 mb-10 max-w-4xl mx-auto">
+            <button onclick="filtrarPorCategoria('Asesoría Contable')" class="btn-category px-5 py-3 bg-blue-700 text-white shadow-lg hover:bg-blue-800">📑 Fiscal</button>
+            <button onclick="filtrarPorCategoria('Gastronomía')" class="btn-category px-5 py-3 bg-orange-500 text-white shadow-lg hover:bg-orange-600">🥘 Comida</button>
+            <button onclick="filtrarPorCategoria('Turismo')" class="btn-category px-5 py-3 bg-teal-600 text-white shadow-lg hover:bg-teal-700">🏝️ Turismo</button>
+            <button onclick="filtrarPorCategoria('Comercio')" class="btn-category px-5 py-3 bg-slate-700 text-white shadow-lg hover:bg-slate-800">🛍️ Comercio</button>
+            <button onclick="filtrarPorCategoria('Decoración y Eventos Sociales')" class="btn-category px-5 py-3 bg-rose-500 text-white shadow-lg hover:bg-rose-600">🎈 Eventos</button>
+            <button onclick="abrirModalClasificado()" class="btn-category px-5 py-3 bg-purple-700 text-white animate-pulse shadow-lg"><i class="fas fa-plus mr-2"></i> Nuevo Clasificado</button>
         </div>
 
-        <div class="relative max-w-2xl mx-auto mb-10 text-black">
-            <input type="text" id="inputBusqueda" placeholder="Busca oficios, comida, zonas o servicios..." class="w-full py-5 px-14 rounded-2xl bg-white text-slate-900 shadow-2xl outline-none focus:ring-4 focus:ring-blue-500/30">
-            <i class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 text-xl"></i>
+        <div class="relative w-full max-w-5xl mx-auto mb-10 text-black px-4">
+            <input type="text" id="inputBusqueda" placeholder="Busca oficios, comida, zonas o servicios en Acapulco..." 
+                   class="w-full py-6 px-16 rounded-2xl bg-white text-slate-900 shadow-2xl outline-none focus:ring-4 focus:ring-blue-500/30 text-lg md:text-xl font-medium placeholder:text-slate-400">
+            <i class="fas fa-search absolute left-10 top-1/2 -translate-y-1/2 text-slate-400 text-2xl"></i>
         </div>
 
         <div class="flex justify-center gap-4">
-            <button onclick="mostrarNegocios(negocios)" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 px-8 py-3 rounded-xl font-bold text-[10px] uppercase transition-all">Ver Directorio</button>
+            <button onclick="mostrarNegocios(negocios)" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 px-8 py-3 rounded-xl font-bold text-[10px] uppercase transition-all">Ver Todo el Directorio</button>
             <button onclick="verClasificados()" class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl font-bold text-[10px] uppercase shadow-lg transition-all"><i class="fas fa-bullhorn mr-2"></i> Ver Clasificados</button>
         </div>
     </header>
@@ -139,7 +142,6 @@
         const db = getFirestore(app);
         window.db = db; window.collection = collection; window.addDoc = addDoc;
 
-        // Escuchar COMENTARIOS en tiempo real
         onSnapshot(query(collection(db, "comentarios"), orderBy("fecha", "asc")), (snap) => {
             let tempComms = {};
             snap.forEach(doc => {
@@ -151,7 +153,6 @@
             if(window.mostrarNegocios) window.mostrarNegocios(window.negociosActuales || window.negocios);
         });
 
-        // Escuchar CLASIFICADOS en tiempo real
         onSnapshot(query(collection(db, "clasificados"), orderBy("fecha", "desc")), (snap) => {
             let tempClas = [];
             snap.forEach(doc => {
@@ -162,7 +163,6 @@
             window.listaClasificadosRealTime = tempClas;
         });
 
-        // Formulario de Clasificados
         document.getElementById('formClasificado').addEventListener('submit', async (e) => {
             e.preventDefault();
             const nuevo = {
