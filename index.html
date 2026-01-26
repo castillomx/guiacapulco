@@ -140,8 +140,13 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        window.db = db; window.collection = collection; window.addDoc = addDoc;
+        
+        // Exponer a global para el segundo script
+        window.db = db; 
+        window.collection = collection; 
+        window.addDoc = addDoc;
 
+        // Escuchar Comentarios
         onSnapshot(query(collection(db, "comentarios"), orderBy("fecha", "asc")), (snap) => {
             let tempComms = {};
             snap.forEach(doc => {
@@ -153,8 +158,10 @@
             if(window.mostrarNegocios) window.mostrarNegocios(window.negociosActuales || window.negocios);
         });
 
+        // Escuchar Clasificados en Tiempo Real
         onSnapshot(query(collection(db, "clasificados"), orderBy("fecha", "desc")), (snap) => {
             window.listaClasificadosRealTime = snap.docs.map(doc => ({id: doc.id, ...doc.data()}));
+            console.log("Clasificados actualizados desde la nube");
         });
     </script>
 
@@ -163,7 +170,6 @@
             { id: 1, nombre: "Decoraciones Ana Lizbeth", categoria: "Decoración y Eventos Sociales", descripcion: "Globos, eventos sociales, desayunos sorpresa.", zona: "Rinconada Luis Donaldo Colosio", tel: "7442211689", img: "img/analizbeth.jpg" },
             { id: 2, nombre: "Papelería Paty", categoria: "Comercio", descripcion: "Artículos de papelería, impresiones, copias.", zona: "Granjas del Marqués", tel: "7444433601", img: "img/papepaty.jpg" },
             { id: 3, nombre: "Peluquería Mercado", categoria: "Comercio", descripcion: "Cortes de cabello para toda la Familia", zona: "Mártires de La Democracia", tel: "0", img: "img/peluquero.jpg" },
-            // Jugos en Gastronomía y Comercio
             { id: 4, nombre: "Venta de Jugos Naturales", categoria: "Gastronomía, Comercio", descripcion: "Jugo de naranja recién exprimido.", zona: "Av. Principal Colosio", tel: "0", img: "img/jugos.jpg" },
             { id: 5, nombre: "Asesorías Contables", categoria: "Asesoría Contable", descripcion: "Trámites ante el SAT y contabilidad.", zona: "Costa Azul, Acapulco.", tel: "7445315790", img: "img/contable.jpg" }
         ];
@@ -182,8 +188,15 @@
             if (!usuarioLogueado) { alert("Accede primero para comentar."); return; }
             const input = document.getElementById(`input-${negocioId}`);
             if (!input.value.trim()) return;
-            try { await window.addDoc(window.collection(window.db, "comentarios"), { negocioId, autor: usuarioLogueado.nombre, texto: input.value, fecha: new Date() }); input.value = ""; }
-            catch (e) { console.error(e); }
+            try { 
+                await window.addDoc(window.collection(window.db, "comentarios"), { 
+                    negocioId, 
+                    autor: usuarioLogueado.nombre, 
+                    texto: input.value, 
+                    fecha: new Date() 
+                }); 
+                input.value = ""; 
+            } catch (e) { console.error(e); }
         }
 
         function mostrarNegocios(lista, label = "Resultados") {
@@ -220,6 +233,39 @@
             });
         }
 
+        // Lógica para enviar nuevos clasificados a Firebase
+        document.getElementById('formClasificado').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.innerText = "Publicando...";
+            btn.disabled = true;
+
+            const nuevoClasificado = {
+                nombre: document.getElementById('claNombre').value,
+                categoria: "CLASIFICADO: " + document.getElementById('claOficio').value.toUpperCase(),
+                descripcion: document.getElementById('claDesc').value,
+                tel: document.getElementById('claTel').value,
+                zona: "Centro / Acapulco",
+                img: "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=400",
+                fecha: new Date()
+            };
+
+            try {
+                await window.addDoc(window.collection(window.db, "clasificados"), nuevoClasificado);
+                alert("¡Publicado en la nube correctamente!");
+                document.getElementById('formClasificado').reset();
+                cerrarModalClasificado();
+                // Mostramos los clasificados para ver el nuevo
+                verClasificados();
+            } catch (error) {
+                console.error(error);
+                alert("Error al conectar con la base de datos.");
+            } finally {
+                btn.innerText = "Publicar en la Nube";
+                btn.disabled = false;
+            }
+        });
+
         window.filtrarPorCategoria = (c) => mostrarNegocios(negocios.filter(n => n.categoria.toLowerCase().includes(c.toLowerCase())), c);
 
         document.getElementById('inputBusqueda').addEventListener('input', (e) => {
@@ -232,11 +278,27 @@
 
         window.abrirModalClasificado = () => document.getElementById('modalNuevoClasificado').classList.remove('hidden');
         window.cerrarModalClasificado = () => document.getElementById('modalNuevoClasificado').classList.add('hidden');
-        window.verClasificados = () => mostrarNegocios(window.listaClasificadosRealTime || [], "Clasificados Actualizados");
-        function generarQR(t, n) { document.getElementById('qrImagen').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent('https://wa.me/52'+t)}`; document.getElementById('qrNombre').innerText = n; document.getElementById('modalQR').classList.remove('hidden'); }
+        
+        window.verClasificados = () => {
+            const lista = window.listaClasificadosRealTime || [];
+            if(lista.length === 0) {
+                alert("Aún no hay clasificados publicados.");
+            } else {
+                mostrarNegocios(lista, "Clasificados Actualizados");
+            }
+        };
+
+        function generarQR(t, n) { 
+            document.getElementById('qrImagen').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent('https://wa.me/52'+t)}`; 
+            document.getElementById('qrNombre').innerText = n; 
+            document.getElementById('modalQR').classList.remove('hidden'); 
+        }
+        
         function cerrarQR() { document.getElementById('modalQR').classList.add('hidden'); }
+        
         document.getElementById('fechaText').innerText = new Date().toLocaleDateString('es-MX', { day: 'numeric', month: 'short', year: 'numeric' });
         
+        // Inicializar
         mostrarNegocios(negocios);
     </script>
 </body>
