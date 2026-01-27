@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="7LocQrOasQukYtWCKFTH07w-oyvFua-yXgXsGRzAy4Q" />
     <title>GuíaAca Pro - Directorio de Comercios</title>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1151639786767658" crossorigin="anonymous"></script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,7 +15,7 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #0f172a; scroll-behavior: smooth; }
         :root { --midnight-blue: #0f172a; --elegant-gold: #c5a059; --whatsapp-green: #25D366; --qr-brown: #8b5e3c; }
         .gradient-header { background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7)), url('https://images.unsplash.com/photo-1589828914726-278438e35074?q=80&w=1920'); background-size: cover; background-position: center; min-height: 600px; }
-        .business-card { background: white; border-radius: 24px; border: 1px solid #e2e8f0; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .business-card, .ad-card-native { background: white; border-radius: 24px; border: 1px solid #e2e8f0; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; display: flex; flex-direction: column; }
         .business-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.1); border-color: var(--elegant-gold); }
         .business-desc { font-size: 0.9rem; line-height: 1.6; color: #475569; min-height: 80px; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
         .comment-box { background: #f8fafc; border-radius: 12px; padding: 10px; margin-top: 8px; font-size: 0.8rem; border-left: 3px solid var(--elegant-gold); }
@@ -21,7 +24,6 @@
         .forecast-item { display: flex; flex-direction: column; align-items: center; padding: 0 8px; border-right: 1px solid rgba(255,255,255,0.1); }
         .forecast-item:last-child { border-right: none; }
         .visit-counter { background: rgba(197, 160, 89, 0.1); border: 1px solid var(--elegant-gold); color: var(--elegant-gold); padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 800; display: inline-flex; align-items: center; gap: 6px; margin-top: 15px; }
-        
         .port-popup { position: fixed; bottom: 20px; right: 20px; width: 300px; background: white; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 1000; transition: all 0.3s ease; border: 1px solid #e2e8f0; }
         .port-popup-content { padding: 15px; position: relative; }
         .close-popup { position: absolute; top: 5px; right: 10px; font-size: 20px; cursor: pointer; color: #94a3b8; }
@@ -91,10 +93,20 @@
 
         <h1 class="text-4xl md:text-6xl font-extrabold mb-10 italic uppercase drop-shadow-2xl">Directorio <span class="text-amber-400">Inteligente</span> Acapulco</h1>
 
-        <div class="relative w-full max-w-5xl mx-auto mb-8 text-black px-4">
+        <div class="relative w-full max-w-5xl mx-auto mb-6 text-black px-4">
             <input type="text" id="inputBusqueda" placeholder="Busca oficios, comida, zonas o servicios en Acapulco..." 
                    class="w-full py-6 px-16 rounded-2xl bg-white text-slate-900 shadow-2xl outline-none focus:ring-4 focus:ring-blue-500/30 text-lg md:text-xl font-medium placeholder:text-slate-400">
             <i class="fas fa-search absolute left-10 top-1/2 -translate-y-1/2 text-slate-400 text-2xl"></i>
+        </div>
+
+        <div class="max-w-5xl mx-auto mb-8 w-full overflow-hidden min-h-[90px]">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1151639786767658"
+                 data-ad-slot="auto"
+                 data-ad-format="horizontal"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
 
         <div class="flex flex-wrap justify-center gap-3 mb-10 max-w-5xl mx-auto">
@@ -103,7 +115,6 @@
             <button onclick="filtrarPorCategoria('Turismo')" class="btn-category px-5 py-3 bg-teal-600 text-white shadow-lg hover:bg-teal-700">🏝️ Turismo</button>
             <button onclick="filtrarPorCategoria('Comercio')" class="btn-category px-5 py-3 bg-slate-700 text-white shadow-lg hover:bg-slate-800">🛍️ Comercio</button>
             <button onclick="filtrarPorCategoria('Decoración y Eventos Sociales')" class="btn-category px-5 py-3 bg-rose-500 text-white shadow-lg hover:bg-rose-600">🎈 Eventos</button>
-            <button onclick="filtrarPorCategoria('Bienestar Natural')" class="btn-category px-5 py-3 bg-emerald-600 text-white shadow-lg hover:bg-emerald-700">🌱 Bienestar y Desarrollo</button>
             <button onclick="abrirModalClasificado()" class="btn-category px-5 py-3 bg-purple-700 text-white animate-pulse shadow-lg"><i class="fas fa-plus mr-2"></i> Nuevo Clasificado</button>
         </div>
 
@@ -118,7 +129,7 @@
             <h2 id="currentFilterText" class="bg-slate-900 text-white px-10 py-3 rounded-xl shadow-2xl text-[10px] font-black uppercase tracking-[3px] italic">Resultados Destacados</h2>
             <div class="flex flex-wrap justify-center gap-3">
                 <button onclick="window.open('img/mapa.jpg', '_blank')" class="px-6 py-3 bg-sky-700 text-white rounded-xl font-bold text-[9px] uppercase shadow-lg flex items-center gap-2"><i class="fas fa-map"></i> Mapa Turístico</button>
-                <button onclick="window.open('http://googleusercontent.com/maps.google.com/5', '_blank')" class="px-6 py-3 bg-amber-500 text-black rounded-xl font-bold text-[9px] uppercase shadow-lg flex items-center gap-2"><i class="fas fa-location-dot"></i> Playas y Sitios</button>
+                <button onclick="window.open('https://www.google.com/maps/search/Playas+Acapulco0', '_blank')" class="px-6 py-3 bg-amber-500 text-black rounded-xl font-bold text-[9px] uppercase shadow-lg flex items-center gap-2"><i class="fas fa-location-dot"></i> Playas y Sitios</button>
             </div>
         </div>
         <div id="contenedorNegocios" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
@@ -130,11 +141,11 @@
             <div class="grid md:grid-cols-2 gap-12 text-sm leading-relaxed mb-12">
                 <div>
                     <p class="font-bold uppercase tracking-wider text-xs border-b pb-2 mb-4 text-slate-900">Propósito de Investigación</p>
-                    <p class="italic">Este sitio web opera y recopila información específicamente dentro de la ciudad y puerto de Acapulco de Juárez, Guerrero. Los datos se utilizan para fomentar la vinculación comercial local.</p>
+                    <p class="italic">Este sitio web opera específicamente dentro de la ciudad y puerto de Acapulco de Juárez, Guerrero. Los datos se utilizan para fomentar la vinculación comercial local.</p>
                 </div>
                 <div>
                     <p class="font-bold uppercase tracking-wider text-xs border-b pb-2 mb-4 text-slate-900">Manejo de Datos</p>
-                    <p>La información es proporcionada voluntariamente. No compartimos datos con terceros fuera del marco académico. Usted puede solicitar la baja de su registro escribiendo al soporte oficial.</p>
+                    <p>La información es proporcionada voluntariamente. Usted puede solicitar la baja de su registro escribiendo al soporte oficial: <strong>aca.soportepc@gmail.com</strong></p>
                 </div>
             </div>
             <div class="bg-slate-50 p-6 rounded-2xl border flex flex-col md:flex-row items-center justify-between gap-4">
@@ -197,13 +208,11 @@
         const negocios = [
             { id: 1, nombre: "Decoraciones Ana Lizbeth", categoria: "Decoración y Eventos Sociales", descripcion: "Globos, eventos sociales, desayunos sorpresa.", zona: "Rinconada Luis Donaldo Colosio", tel: "7442211689", img: "img/analizbeth.jpg" },
             { id: 2, nombre: "Papelería Paty", categoria: "Comercio", descripcion: "Artículos de papelería, impresiones, copias.", zona: "Granjas del Marqués", tel: "7444433601", img: "img/papepaty.jpg" },
-            { nombre: "Papeleria Confi", categoria: "Comercio", descripcion: "venta de articulos de papeleria y escolar , copias, impresiones, escaneos.", zona: "Mártires de La Democracia S/N, Granjas del Marqués, 39890 Acapulco de Juárez, Gro.", tel: "7444296350", img: "img/papeconfi.jpg" },
-            { nombre: "Peluqueria mercado de la Colosio", categoria: "Comercio", descripcion: "cortes de cabello.", zona: "Mártires de La Democracia, Granjas del Marqués, 39890 Acapulco de Juárez, Gro.", tel: "0", img: "img/peluquero.jpg" },
-            { nombre: "Venta de jugo de naranja fresca", categoria: "Gastronomía, Comercio", descripcion: "Venta de comida y jugo de naranja fresco recién exprimido en bolsa o vaso sobre el camellón.", zona: "Luis Donaldo Colosio, Granjas del Marqués, 39890 Acapulco de Juárez, Gro.", tel: "0", img: "img/jugos.jpg" },
-            { nombre: "Asesorias Contables ", categoria: "Asesoría Contable", descripcion: "Ayudar a las personas con trámites ante el SAT , declaración de impuestos y la contabilidad de sus negocios.", zona: "Avcostera Miguel Aleman Valdez 3111, Costa Azul, 39850 Acapulco de Juárez, Gro.", tel: "7445315790", img: "img/contable.jpg" },
-            { nombre: "Hotel Villas La Lupita", categoria: "Hoteles y Turismo", descripcion: "Hotel familiar, habitaciones con todos los servicios a una cuadra de la costera y zona de playas.", zona: "Anton de Alaminos #232 Fraccionamiento Magallanes, Acapulco, Mexico, 39670", tel: "+5217443508253", img: "img/hvlupita.jpg" },
-            { nombre: "Mishol Hotel & Beach Club", categoria: "Hoteles y Turismo", descripcion: "Ubicado en la carretera rumbo a Barra Vieja, su playa casi exclusiva para sus húspedes.", zona: "Carretera Barra Vieja Km 29, Acapulco, Mexico, 39893", tel: "+527442399010", img: "img/hmishol.jpg" },
-            { nombre: "Hotel Playa Suites Acapulco", categoria: "Hoteles y Turismo", descripcion: "488 Suites con vista al mar, a 150 metros de la Diana en Acapulco, Gro.", zona: "Av. Costera Miguel Alemán #123, Acapulco, Mexico, 39670", tel: "5217441768321", img: "img/hplayasuites.jpg" },
+            { nombre: "Papeleria Confi", categoria: "Comercio", descripcion: "Venta de articulos de papeleria y escolar.", zona: "Mártires de La Democracia, Acapulco", tel: "7444296350", img: "img/papeconfi.jpg" },
+            { nombre: "Venta de jugo de naranja fresca", categoria: "Gastronomía, Comercio", descripcion: "Comida y jugos naturales frescos recién exprimidos.", zona: "Luis Donaldo Colosio, Acapulco", tel: "0", img: "img/jugos.jpg" },
+            { nombre: "Hotel Villas La Lupita", categoria: "Hoteles y Turismo", descripcion: "Hotel familiar cerca de playas.", zona: "Magallanes, Acapulco", tel: "7443508253", img:"img/hvlupita.jpg" },  
+            { nombre: "Mishol Hotel & Beach Club", categoria: "Hoteles y Turismo", descripcion: "Hotel con playa casi exclusiva.", zona: "Carretera Barra Vieja, Acapulco", tel: "+527442399010", img: "img/hmishol.jpg" },
+            { nombre: "Hotel Playa Suites Acapulco", categoria: "Hoteles y Turismo", descripcion: "488 Suites con vista al mar.", zona: "Av. Costera Miguel Alemán, Acapulco", tel: "5217441768321", img: "img/hplayasuites.jpg" },
         ];
 
         window.negocios = negocios;
@@ -234,10 +243,10 @@
             contenedor.innerHTML = '';
             document.getElementById('currentFilterText').innerText = label;
             
-            lista.forEach(n => {
+            lista.forEach((n, index) => {
                 const listadoComms = window.comentariosDB[n.id || n.nombre] || [];
                 const hasWA = n.tel && n.tel !== "0";
-                const mapUrl = `http://googleusercontent.com/maps.google.com/6{encodeURIComponent(n.nombre + ' ' + n.zona + ' Acapulco')}`;
+                const mapUrl = `https://www.google.com/maps/search/Playas+Acapulco1{encodeURIComponent(n.nombre + ' ' + n.zona + ' Acapulco')}`;
 
                 contenedor.innerHTML += `
                     <article class="business-card text-black">
@@ -252,68 +261,45 @@
                                 <button onclick="generarQR('${n.tel}', '${n.nombre}')" class="bg-[#8b5e3c] py-2 rounded-lg font-bold text-[9px] uppercase">QR</button>
                                 <a href="${mapUrl}" target="_blank" class="bg-blue-600 py-2 rounded-lg font-bold text-[9px] text-center uppercase shadow-sm"><i class="fas fa-location-dot"></i> Mapa</a>
                             </div>
-                            <div class="border-t pt-4">
-                                <h4 class="text-[9px] font-black uppercase mb-2">Reseñas en la Nube</h4>
-                                <div class="max-h-24 overflow-y-auto mb-3">${listadoComms.map(c => `<div class="comment-box"><strong>${c.autor}:</strong> ${c.texto}</div>`).join('')}</div>
-                                <div class="flex gap-2">
-                                    <input type="text" id="input-${n.id || n.nombre}" placeholder="Comentar..." class="flex-grow text-[10px] border p-2 rounded-lg outline-none">
-                                    <button onclick="agregarComentario('${n.id || n.nombre}')" class="bg-blue-600 text-white px-3 py-1 rounded-lg"><i class="fas fa-paper-plane text-xs"></i></button>
-                                </div>
-                            </div>
                         </div>
                     </article>`;
+
+                // ESPACIO PUBLICITARIO 2: Inyectar anuncio nativo cada 3 tarjetas
+                if ((index + 1) % 3 === 0) {
+                    contenedor.innerHTML += `
+                        <article class="ad-card-native p-4 flex items-center justify-center min-h-[350px]">
+                            <ins class="adsbygoogle"
+                                 style="display:block; width:100%"
+                                 data-ad-format="fluid"
+                                 data-ad-layout-key="-fb+5w+4e-db+86"
+                                 data-ad-client="ca-pub-1151639786767658"
+                                 data-ad-slot="auto"></ins>
+                            <script>(adsbygoogle = window.adsbygoogle || []).push({});<\/script>
+                        </article>`;
+                }
             });
         }
 
         function inicializarClima() {
             const row = document.getElementById('forecastRow');
             const hoy = new Date();
-            const diasSemana = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-            const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-
             const pronosticoReal = [
                 { icon: 'fa-sun text-amber-400', temp: '29', clima: 'Soleado' },
                 { icon: 'fa-sun text-amber-400', temp: '30', clima: 'Soleado' },
                 { icon: 'fa-cloud-showers-heavy text-blue-400', temp: '29', clima: 'Lluvia' }
             ];
             
-            let html = '';
-            pronosticoReal.forEach((f, i) => {
-                const d = new Date();
-                d.setDate(hoy.getDate() + i);
-                const etiqueta = i === 0 ? 'Hoy' : diasSemana[d.getDay()];
-                const fechaCorta = `${d.getDate()} ${meses[d.getMonth()]}`;
-
-                html += `
-                    <div class="forecast-item">
-                        <span class="text-[7px] font-black uppercase opacity-70">${etiqueta}</span>
-                        <span class="text-[6px] opacity-50">${fechaCorta}</span>
-                        <i class="fas ${f.icon} text-[10px] my-1"></i>
-                        <span class="text-[8px] font-bold">${f.temp}°C</span>
-                    </div>
-                `;
-
-                if(i === 0) actualizarBandera(f.clima);
-            });
+            row.innerHTML = pronosticoReal.map((f, i) => {
+                const d = new Date(); d.setDate(hoy.getDate() + i);
+                const etiqueta = i === 0 ? 'Hoy' : d.toLocaleDateString('es-MX', {weekday: 'short'});
+                return `<div class="forecast-item"><span class="text-[7px] font-black uppercase opacity-70">${etiqueta}</span><i class="fas ${f.icon} text-[10px] my-1"></i><span class="text-[8px] font-bold">${f.temp}°C</span></div>`;
+            }).join('');
             
-            row.innerHTML = html;
-            document.getElementById('fechaText').innerText = hoy.toLocaleDateString('es-MX', { day: 'numeric', month: 'short', year: 'numeric' });
-        }
-
-        function actualizarBandera(clima) {
-            const bandera = document.getElementById('banderaCapitania');
-            const reporte = document.getElementById('climaMaritimo');
-            
-            if(clima === 'Soleado') {
-                bandera.style.background = 'blue';
-                reporte.innerText = 'Buenas condiciones';
-            } else if (clima === 'Lluvia') {
-                bandera.style.background = 'yellow';
-                reporte.innerText = 'Mal tiempo';
-            } else {
-                bandera.style.background = 'red';
-                reporte.innerText = 'Condiciones inestables';
+            if(pronosticoReal[0].clima === 'Soleado') {
+                document.getElementById('banderaCapitania').style.background = 'blue';
+                document.getElementById('climaMaritimo').innerText = 'Buenas condiciones';
             }
+            document.getElementById('fechaText').innerText = hoy.toLocaleDateString('es-MX', { day: 'numeric', month: 'short' });
         }
 
         async function gestionarContador() {
@@ -326,8 +312,7 @@
 
         document.getElementById('inputBusqueda').addEventListener('input', (e) => {
             const b = e.target.value.toLowerCase();
-            if (!b) { mostrarNegocios(negocios); return; }
-            const res = negocios.filter(n => `${n.nombre} ${n.descripcion} ${n.zona} ${n.categoria}`.toLowerCase().includes(b));
+            const res = negocios.filter(n => `${n.nombre} ${n.descripcion} ${n.categoria}`.toLowerCase().includes(b));
             mostrarNegocios(res, `Buscando: "${b}"`);
         });
 
