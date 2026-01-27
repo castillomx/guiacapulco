@@ -93,7 +93,7 @@
             <h2 id="currentFilterText" class="bg-slate-900 text-white px-10 py-3 rounded-xl shadow-2xl text-[10px] font-black uppercase tracking-[3px] italic">Resultados Destacados</h2>
             <div class="flex flex-wrap justify-center gap-3">
                 <button onclick="window.open('img/mapa.jpg', '_blank')" class="px-6 py-3 bg-sky-700 text-white rounded-xl font-bold text-[9px] uppercase shadow-lg flex items-center gap-2"><i class="fas fa-map"></i> Mapa Turístico</button>
-                <button onclick="window.open('https://www.google.com/maps/d/embed?mid=1U2JhlxltjjMdVSRIo4z-qBmIHlv3UPc&ehbc=2E312F', '_blank')" class="px-6 py-3 bg-amber-500 text-black rounded-xl font-bold text-[9px] uppercase shadow-lg flex items-center gap-2"><i class="fas fa-location-dot"></i> Playas y Sitios</button>
+                <button onclick="window.open('https://www.google.com/maps/search/Playas+Acapulco', '_blank')" class="px-6 py-3 bg-amber-500 text-black rounded-xl font-bold text-[9px] uppercase shadow-lg flex items-center gap-2"><i class="fas fa-location-dot"></i> Playas y Sitios</button>
             </div>
         </div>
         <div id="contenedorNegocios" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
@@ -174,7 +174,7 @@
             { id: 3, nombre: "Peluquería Mercado", categoria: "Comercio", descripcion: "Cortes de cabello para toda la Familia", zona: "Mártires de La Democracia", tel: "0", img: "img/peluquero.jpg" },
             { id: 4, nombre: "Venta de Jugos Naturales", categoria: "Gastronomía, Comercio", descripcion: "Jugo de naranja recién exprimido.", zona: "Av. Principal Colosio", tel: "0", img: "img/jugos.jpg" },
             { id: 5, nombre: "Asesorías Contables", categoria: "Asesoría Contable", descripcion: "Trámites ante el SAT y contabilidad.", zona: "Costa Azul, Acapulco.", tel: "7445315790", img: "img/contable.jpg" },
-            { nombre: "Hotel Villas La Lupita", categoria: "Hoteles y Turismo", descripcion: "Hotel Familiar, habitaciones con todos los servicios a/c, ventilador, T.V con cable, estacionamiento, a una cuadra de la costera y zona de playas.", zona: "Anton de Alaminos #232 Fraccionamiento Magallanes, Acapulco, Mexico, 39670", tel: "+5217443508253", img:"img/hvlupita.jpg", social: "Facebook", rating: "5", oferta: "" },  
+            { id: 6, nombre: "Hotel Villas La Lupita", categoria: "Hoteles y Turismo", descripcion: "Hotel Familiar, habitaciones con todos los servicios a/c, ventilador, T.V con cable, estacionamiento, a una cuadra de la costera y zona de playas.", zona: "Anton de Alaminos #232 Fraccionamiento Magallanes, Acapulco, Mexico, 39670", tel: "7443508253", img:"img/hvlupita.jpg", social: "Facebook", rating: "5", oferta: "" },  
         ];
 
         window.negocios = negocios;
@@ -211,6 +211,9 @@
             lista.forEach(n => {
                 const listadoComms = window.comentariosDB[n.id || n.nombre] || [];
                 const hasWA = n.tel && n.tel !== "0";
+                // Generar URL de búsqueda en Google Maps
+                const mapUrl = `https://www.google.com/maps/search/${encodeURIComponent(n.nombre + ' ' + n.zona + ' Acapulco')}`;
+
                 contenedor.innerHTML += `
                     <article class="business-card text-black">
                         <div class="h-48 overflow-hidden bg-slate-100"><img src="${n.img}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=400'"></div>
@@ -219,10 +222,13 @@
                             <h3 class="text-lg font-extrabold mb-2 uppercase leading-tight">${n.nombre}</h3>
                             <p class="business-desc italic">${n.descripcion}</p>
                             <div class="flex items-center gap-2 text-slate-400 text-[10px] mb-4"><i class="fas fa-map-marker-alt text-amber-600"></i><span>${n.zona}</span></div>
-                            <div class="grid grid-cols-2 gap-2 mb-4 text-white">
+                            
+                            <div class="grid grid-cols-3 gap-2 mb-4 text-white">
                                 ${hasWA ? `<a href="https://wa.me/52${n.tel}" target="_blank" class="bg-[#25D366] py-2 rounded-lg font-bold text-[9px] text-center uppercase shadow-sm">WhatsApp</a>` : '<span class="bg-slate-100 text-slate-400 py-2 rounded-lg font-bold text-[9px] text-center">Sin Tel</span>'}
                                 <button onclick="generarQR('${n.tel}', '${n.nombre}')" class="bg-[#8b5e3c] py-2 rounded-lg font-bold text-[9px] uppercase">QR</button>
+                                <a href="${mapUrl}" target="_blank" class="bg-blue-600 py-2 rounded-lg font-bold text-[9px] text-center uppercase shadow-sm"><i class="fas fa-location-dot"></i> Mapa</a>
                             </div>
+
                             <div class="border-t pt-4">
                                 <h4 class="text-[9px] font-black uppercase mb-2">Reseñas en la Nube</h4>
                                 <div class="max-h-24 overflow-y-auto mb-3">${listadoComms.map(c => `<div class="comment-box"><strong>${c.autor}:</strong> ${c.texto}</div>`).join('')}</div>
@@ -306,9 +312,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
