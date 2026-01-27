@@ -23,25 +23,25 @@
         .visit-counter { background: rgba(197, 160, 89, 0.1); border: 1px solid var(--elegant-gold); color: var(--elegant-gold); padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 800; display: inline-flex; align-items: center; gap: 6px; margin-top: 15px; }
         
         /* Pop-up Emergente Capitanía */
-        .port-popup { position: fixed; bottom: 20px; right: 20px; width: 300px; background: white; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 1000; border-left: 5px solid #ffc107; transition: all 0.3s ease; }
+        .port-popup { position: fixed; bottom: 20px; right: 20px; width: 300px; background: white; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 1000; transition: all 0.3s ease; border: 1px solid #e2e8f0; }
         .port-popup-content { padding: 15px; position: relative; }
         .close-popup { position: absolute; top: 5px; right: 10px; font-size: 20px; cursor: pointer; color: #94a3b8; }
+        .flag-icon { width: 24px; height: 16px; border-radius: 2px; display: inline-block; vertical-align: middle; margin-right: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
     </style>
 </head>
 <body>
 
     <div id="popupCapitania" class="port-popup">
         <div class="port-popup-content">
-            <span class="close-popup" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
-            <div class="flex items-center gap-3 mb-2">
-                <div class="bg-amber-500 text-white p-2 rounded-full animate-pulse"><i class="fas fa-anchor text-xs"></i></div>
-                <p class="font-black uppercase text-[10px] text-slate-900">Capitanía de Puerto</p>
+            <span class="close-popup" onclick="this.parentElement.parentElement.style.display='none'">×</span>
+            <div class="flex items-center gap-2 mb-3">
+                <div id="banderaCapitania" class="flag-icon"></div>
+                <p class="font-black uppercase text-[10px] text-slate-900 tracking-wider">Capitanía de Puerto</p>
             </div>
             <p id="tideReport" class="text-[11px] leading-tight text-slate-600">
-                Estado: <strong>Marea Baja (Bajando)</strong><br>
-                Próxima Bajamar: 13:43 h<br>
-                Coeficiente: 53 (Estable)<br>
-                <strong>Puerto Abierto</strong>
+                Estado: <strong id="tideStatus">Marea Baja</strong><br>
+                Clima Marítimo: <span id="climaMaritimo">Buenas condiciones</span><br>
+                <strong>Puerto Abierto</strong> a navegación.
             </p>
         </div>
     </div>
@@ -125,29 +125,6 @@
         <div id="contenedorNegocios" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
     </main>
 
-    <section class="max-w-7xl mx-auto px-8 mb-24 text-black">
-        <div class="bg-white p-12 rounded-[2rem] border-t-4 border-[#c5a059] shadow-sm">
-            <h3 class="text-2xl font-black text-slate-900 uppercase tracking-tight mb-8">Políticas de Privacidad y Aviso Académico</h3>
-            <div class="grid md:grid-cols-2 gap-12 text-sm leading-relaxed mb-12">
-                <div>
-                    <p class="font-bold uppercase tracking-wider text-xs border-b pb-2 mb-4 text-slate-900">Propósito de Investigación</p>
-                    <p class="italic">Este sitio web opera y recopila información específicamente dentro de la ciudad y puerto de Acapulco de Juárez, Guerrero.</p>
-                </div>
-                <div>
-                    <p class="font-bold uppercase tracking-wider text-xs border-b pb-2 mb-4 text-slate-900">Manejo de Datos</p>
-                    <p>La información es proporcionada voluntariamente. No compartimos datos con terceros fuera del marco académico.</p>
-                </div>
-            </div>
-            <div class="bg-slate-50 p-6 rounded-2xl border flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center text-white"><i class="fas fa-envelope text-xs"></i></div>
-                    <div><h4 class="font-black text-xs uppercase">Soporte Técnico</h4><p class="text-[10px] text-slate-500">acasoporte.pc@gmail.com</p></div>
-                </div>
-                <a href="mailto:acasoporte.pc@gmail.com" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-[10px] uppercase shadow-md hover:bg-blue-800 transition-all">Enviar Correo</a>
-            </div>
-        </div>
-    </section>
-
     <footer class="bg-slate-950 py-12 text-center border-t-4 border-amber-500 text-white">
         <p class="font-bold text-xs uppercase tracking-[4px] mb-2">© 2026 Directorio de Comercios en Acapulco</p>
         <p class="text-slate-500 text-[9px] uppercase font-bold">Proyecto de Tesis Profesional - Acapulco, Guerrero</p>
@@ -198,13 +175,14 @@
         const negocios = [
             { id: 1, nombre: "Decoraciones Ana Lizbeth", categoria: "Decoración y Eventos Sociales", descripcion: "Globos, eventos sociales, desayunos sorpresa.", zona: "Rinconada Luis Donaldo Colosio", tel: "7442211689", img: "img/analizbeth.jpg" },
             { id: 2, nombre: "Papelería Paty", categoria: "Comercio", descripcion: "Artículos de papelería, impresiones, copias.", zona: "Granjas del Marqués", tel: "7444433601", img: "img/papepaty.jpg" },
-            { id: 3, nombre: "Peluquería Mercado", categoria: "Comercio", descripcion: "Cortes de cabello para toda la Familia", zona: "Mártires de La Democracia", tel: "0", img: "img/peluquero.jpg" },
-            { id: 4, nombre: "Venta de Jugos Naturales", categoria: "Gastronomía, Comercio", descripcion: "Jugo de naranja recién exprimido.", zona: "Av. Principal Colosio", tel: "0", img: "img/jugos.jpg" },
-            { id: 5, nombre: "Asesorías Contables", categoria: "Asesoría Contable", descripcion: "Trámites ante el SAT y contabilidad.", zona: "Costa Azul, Acapulco.", tel: "7445315790", img: "img/contable.jpg" },
-            { id: 6, nombre: "Hotel Villas La Lupita", categoria: "Hoteles y Turismo", descripcion: "Hotel Familiar, habitaciones con todos los servicios...", zona: "Magallanes, Acapulco", tel: "7443508253", img:"img/hvlupita.jpg" },  
+            { nombre: "Papeleria Confi", categoria: "Comercio", descripcion: "venta de articulos de papeleria y escolar , copias, impresiones, escaneos.", zona: "Mártires de La Democracia S/N, Granjas del Marqués, 39890 Acapulco de Juárez, Gro.", tel: "7444296350", img: "", social: "", rating: "5", oferta: "" },
+            { nombre: "Peluqueria mercado de la Colosio", categoria: "Comercio", descripcion: "cortes de cabello.", zona: "Mártires de La Democracia, Granjas del Marqués, 39890 Acapulco de Juárez, Gro.", tel: "0", img: "", social: "", rating: "4", oferta: "" },
+            { nombre: "Venta de jugo de naranja fresca", categoria: "Comercio", descripcion: "venta de jugo de naranja en bolsa o vaso sobre el camellon en la av. principal ", zona: "Luis Donaldo Colosio, Granjas del Marqués, 39890 Acapulco de Juárez, Gro.", tel: "0", img: "", social: "", rating: "5", oferta: "" },
+            { nombre: "Asesorias Contables ", categoria: "Asesoría Contable", descripcion: "Ayudar a las personas con trámites ante el SAT , declaración de impuestos y la contabilidad de sus negocios.", zona: "Avcostera Miguel Aleman Valdez 3111, P. B Sanborns Acapulco Oceanic 2000, Costa Azul, 39850 Acapulco de Juárez, Gro.", tel: "7445315790", img: "img/contable.jpg", social: "No, solo contacto por WhatsApp", rating: "5", oferta: "" },
+            { nombre: "Hotel Villas La Lupita", categoria: "Hoteles y Turismo", descripcion: "Hotel familiar, habitaciones con todos los servicios a/c, ventilador, T.V con cable, estacionamiento, a una cuadra de la costera y zona de playas.", zona: "Anton de Alaminos #232 Fraccionamiento Magallanes, Acapulco, Mexico, 39670", tel: "+5217443508253", img: "img/hvlupita.jpg", social: "Facebook", rating: "5", oferta: "" },
             { nombre: "Mishol Hotel & Beach Club", categoria: "Hoteles y Turismo", descripcion: "Ubicado en la carretera rumbo a Barra Vieja, su playa casi exclusiva para sus húspedes lo apunta como una opción para el descanso y la diversión en Familia.", zona: "Carretera Barra Vieja Km 29, Acapulco, Mexico, 39893", tel: "+527442399010", img: "img/hmishol.jpg", social: "Facebook, Instagram, Sitio Web", rating: "5", oferta: "" },
             { nombre: "Hotel Playa Suites Acapulco", categoria: "Hoteles y Turismo", descripcion: "488 Suites con vista al mar, a 150 metros de la Diana en Acapulco, Gro.", zona: "Av. Costera Miguel Alemán #123, Acapulco, Mexico, 39670", tel: "5217441768321", img: "img/hplayasuites.jpg", social: "Facebook, Instagram, Sitio Web", rating: "5", oferta: "" },
-                ];
+        ];
 
         window.negocios = negocios;
         let usuarioLogueado = null;
@@ -265,24 +243,61 @@
             });
         }
 
-        // PRONÓSTICO DE 3 DÍAS
         function inicializarClima() {
             const row = document.getElementById('forecastRow');
+            const hoy = new Date();
+            const diasSemana = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+            const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+
+            // Pronóstico real para 3 días
             const pronosticoReal = [
-                { dia: 'Hoy', icon: 'fa-sun text-amber-400', temp: '29' },
-                { dia: 'Mañana', icon: 'fa-sun text-amber-400', temp: '30' },
-                { dia: 'Mie 28', icon: 'fa-cloud-showers-heavy text-blue-400', temp: '29' }
+                { icon: 'fa-sun text-amber-400', temp: '29', clima: 'Soleado' },
+                { icon: 'fa-sun text-amber-400', temp: '30', clima: 'Soleado' },
+                { icon: 'fa-cloud-showers-heavy text-blue-400', temp: '29', clima: 'Lluvia' }
             ];
             
-            row.innerHTML = pronosticoReal.map(f => `
-                <div class="forecast-item">
-                    <span class="text-[7px] font-black uppercase opacity-70">${f.dia}</span>
-                    <i class="fas ${f.icon} text-[10px] my-1"></i>
-                    <span class="text-[8px] font-bold">${f.temp}°C</span>
-                </div>
-            `).join('');
+            let html = '';
+            pronosticoReal.forEach((f, i) => {
+                const d = new Date();
+                d.setDate(hoy.getDate() + i);
+                const etiqueta = i === 0 ? 'Hoy' : diasSemana[d.getDay()];
+                const fechaCorta = `${d.getDate()} ${meses[d.getMonth()]}`;
+
+                html += `
+                    <div class="forecast-item">
+                        <span class="text-[7px] font-black uppercase opacity-70">${etiqueta}</span>
+                        <span class="text-[6px] opacity-50">${fechaCorta}</span>
+                        <i class="fas ${f.icon} text-[10px] my-1"></i>
+                        <span class="text-[8px] font-bold">${f.temp}°C</span>
+                    </div>
+                `;
+
+                // Actualizar bandera en el Pop-up basado en el clima de "Hoy"
+                if(i === 0) actualizarBandera(f.clima);
+            });
             
-            document.getElementById('fechaText').innerText = new Date().toLocaleDateString('es-MX', { day: 'numeric', month: 'short', year: 'numeric' });
+            row.innerHTML = html;
+            document.getElementById('fechaText').innerText = hoy.toLocaleDateString('es-MX', { day: 'numeric', month: 'short', year: 'numeric' });
+        }
+
+        function actualizarBandera(clima) {
+            const bandera = document.getElementById('banderaCapitania');
+            const reporte = document.getElementById('climaMaritimo');
+            
+            // Lógica de colores según instrucción
+            if(clima === 'Soleado') {
+                bandera.style.background = 'blue';
+                reporte.innerText = 'Buenas condiciones';
+            } else if (clima === 'Nubes') {
+                bandera.style.background = 'linear-gradient(to right, blue 50%, yellow 50%)';
+                reporte.innerText = 'Inestabilidad Atmosférica';
+            } else if (clima === 'Lluvia') {
+                bandera.style.background = 'yellow';
+                reporte.innerText = 'Mal tiempo';
+            } else {
+                bandera.style.background = 'red';
+                reporte.innerText = 'Malas condiciones atmosféricas';
+            }
         }
 
         async function gestionarContador() {
@@ -311,7 +326,6 @@
                 await window.addDoc(window.collection(window.db, "clasificados"), nuevoClasificado);
                 document.getElementById('formClasificado').reset();
                 cerrarModalClasificado();
-                verClasificados();
             } catch (error) { console.error(error); } 
             finally { btn.innerText = "Publicar en la Nube"; btn.disabled = false; }
         });
@@ -320,7 +334,6 @@
         window.abrirModalClasificado = () => document.getElementById('modalNuevoClasificado').classList.remove('hidden');
         window.cerrarModalClasificado = () => document.getElementById('modalNuevoClasificado').classList.add('hidden');
         window.verClasificados = () => mostrarNegocios(window.listaClasificadosRealTime || [], "Clasificados Actualizados");
-        
         function generarQR(t, n) { 
             document.getElementById('qrImagen').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent('https://wa.me/52'+t)}`; 
             document.getElementById('qrNombre').innerText = n; 
