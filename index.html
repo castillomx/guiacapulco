@@ -111,10 +111,11 @@
 
         <div class="flex flex-wrap justify-center gap-3 mb-10 max-w-5xl mx-auto">
             <button onclick="filtrarPorCategoria('Asesoría Contable')" class="btn-category px-5 py-3 bg-blue-700 text-white shadow-lg hover:bg-blue-800">📑 Contabilidad/Fiscal</button>
-            <button onclick="filtrarPorCategoria('Gastronomía')" class="btn-category px-5 py-3 bg-orange-500 text-white shadow-lg hover:bg-orange-600">🥘 Comida/Foodies</button>
+            <button onclick="filtrarPorCategoria('Gastronomia')" class="btn-category px-5 py-3 bg-orange-500 text-white shadow-lg hover:bg-orange-600">🥘 Comida/Foodies</button>
             <button onclick="filtrarPorCategoria('Turismo')" class="btn-category px-5 py-3 bg-teal-600 text-white shadow-lg hover:bg-teal-700">🏝️ Hoteles/Turismo</button>
             <button onclick="filtrarPorCategoria('Comercio')" class="btn-category px-5 py-3 bg-slate-700 text-white shadow-lg hover:bg-slate-800">🛍️ Comercios Locales</button>
             <button onclick="filtrarPorCategoria('Decoración')" class="btn-category px-5 py-3 bg-rose-500 text-white shadow-lg hover:bg-rose-600">🎈 Eventos/Decoraciones</button>
+            <button onclick="filtrarPorCategoria('Inmuebles')" class="btn-category px-5 py-3 bg-emerald-600 text-white shadow-lg hover:bg-emerald-700">🏠 Inmuebles/Rentas</button>
             <button onclick="abrirModalClasificado()" class="btn-category px-5 py-3 bg-purple-700 text-white animate-pulse shadow-lg"><i class="fas fa-plus mr-2"></i> Nuevo Clasificado</button>
         </div>
 
@@ -383,7 +384,22 @@ async function gestionarContador() {
             }
         });
 
-        window.filtrarPorCategoria = (c) => mostrarNegocios(negocios.filter(n => n.categoria.toLowerCase().includes(c.toLowerCase())), c);
+        // Nueva función de filtrado inteligente para Inmuebles y otras categorías
+window.filtrarPorCategoria = (c) => {
+    // Combinamos ambas listas para que el filtro busque en todo
+    const listaTotal = [...negocios, ...(window.listaClasificadosRealTime || [])];
+    
+    const filtrados = listaTotal.filter(n => {
+        const categoria = (n.categoria || "").toLowerCase();
+        const oficio = (n.oficio || "").toLowerCase();
+        const descripcion = (n.descripcion || "").toLowerCase();
+        const termino = c.toLowerCase();
+        
+        return categoria.includes(termino) || oficio.includes(termino) || descripcion.includes(termino);
+    });
+    
+    mostrarNegocios(filtrados, c);
+};
         window.abrirModalClasificado = () => document.getElementById('modalNuevoClasificado').classList.remove('hidden');
         window.cerrarModalClasificado = () => document.getElementById('modalNuevoClasificado').classList.add('hidden');
         window.verClasificados = () => mostrarNegocios(window.listaClasificadosRealTime || [], "Clasificados Actualizados");
@@ -396,6 +412,7 @@ async function gestionarContador() {
     </script>
 </body>
 </html>
+
 
 
 
