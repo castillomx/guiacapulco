@@ -11,20 +11,109 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #0f172a; scroll-behavior: smooth; }
         :root { --midnight-blue: #0f172a; --elegant-gold: #c5a059; --whatsapp-green: #25D366; --qr-brown: #8b5e3c; }
-        .gradient-header { background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7)), url('https://images.unsplash.com/photo-1589828914726-278438e35074?q=80&w=1920'); background-size: cover; background-position: center; min-height: 600px; }
-        .business-card, .ad-card-native { background: white; border-radius: 24px; border: 1px solid #e2e8f0; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; display: flex; flex-direction: column; }
-        .business-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.1); border-color: var(--elegant-gold); }
-        .business-desc { font-size: 0.9rem; line-height: 1.6; color: #475569; min-height: 80px; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-        .comment-box { background: #f8fafc; border-radius: 12px; padding: 10px; margin-top: 8px; font-size: 0.8rem; border-left: 3px solid var(--elegant-gold); }
-        .btn-category { transition: all 0.3s ease; text-transform: uppercase; font-size: 0.65rem; font-weight: 800; letter-spacing: 1px; border-radius: 12px; }
-        .weather-badge { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; }
-        .forecast-item { display: flex; flex-direction: column; align-items: center; padding: 0 8px; border-right: 1px solid rgba(255,255,255,0.1); }
+        
+        .gradient-header { 
+            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7)), url('https://images.unsplash.com/photo-1589828914726-278438e35074?q=80&w=1920'); 
+            background-size: cover; 
+            background-position: center; 
+            min-height: 600px; 
+        }
+
+        .business-card, .ad-card-native { 
+            background: white; 
+            border-radius: 24px; 
+            border: 1px solid #e2e8f0; 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            position: relative; 
+            overflow: hidden; 
+            display: flex; 
+            flex-direction: column; 
+            height: 100%;
+        }
+
+        .business-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.1); 
+            border-color: var(--elegant-gold); 
+        }
+
+        .business-desc { 
+            font-size: 0.9rem; 
+            line-height: 1.6; 
+            color: #475569; 
+            min-height: 80px; 
+            margin-bottom: 1rem; 
+            display: -webkit-box; 
+            -webkit-line-clamp: 3; 
+            -webkit-box-orient: vertical; 
+            overflow: hidden; 
+        }
+
+        .comment-box { 
+            background: #f8fafc; 
+            border-radius: 12px; 
+            padding: 10px; 
+            margin-top: 8px; 
+            font-size: 0.8rem; 
+            border-left: 3px solid var(--elegant-gold); 
+        }
+
+        .btn-category { 
+            transition: all 0.3s ease; 
+            text-transform: uppercase; 
+            font-size: 0.65rem; 
+            font-weight: 800; 
+            letter-spacing: 1px; 
+            border-radius: 12px; 
+        }
+
+        .weather-badge { 
+            background: rgba(15, 23, 42, 0.6); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 12px; 
+        }
+
+        .forecast-item { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 0 8px; 
+            border-right: 1px solid rgba(255,255,255,0.1); 
+        }
+
         .forecast-item:last-child { border-right: none; }
-        .visit-counter { background: rgba(197, 160, 89, 0.1); border: 1px solid var(--elegant-gold); color: var(--elegant-gold); padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 800; display: inline-flex; align-items: center; gap: 6px; margin-top: 15px; }
-        .port-popup { position: fixed; bottom: 20px; right: 20px; width: 300px; background: white; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 1000; transition: all 0.3s ease; border: 1px solid #e2e8f0; }
+
+        .visit-counter { 
+            background: rgba(197, 160, 89, 0.1); 
+            border: 1px solid var(--elegant-gold); 
+            color: var(--elegant-gold); 
+            padding: 4px 12px; 
+            border-radius: 20px; 
+            font-size: 10px; 
+            font-weight: 800; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px; 
+            margin-top: 15px; 
+        }
+
+        .port-popup { 
+            position: fixed; 
+            bottom: 20px; 
+            right: 20px; 
+            width: 300px; 
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+            z-index: 1000; 
+            border: 1px solid #e2e8f0; 
+        }
+
         .port-popup-content { padding: 15px; position: relative; }
         .close-popup { position: absolute; top: 5px; right: 10px; font-size: 20px; cursor: pointer; color: #94a3b8; }
         .flag-icon { width: 24px; height: 16px; border-radius: 2px; display: inline-block; vertical-align: middle; margin-right: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
@@ -36,11 +125,11 @@
         <div class="port-popup-content">
             <span class="close-popup" onclick="this.parentElement.parentElement.style.display='none'">×</span>
             <div class="flex items-center gap-2 mb-3">
-                <div id="banderaCapitania" class="flag-icon"></div>
+                <div id="banderaCapitania" class="flag-icon" style="background: blue;"></div>
                 <p class="font-black uppercase text-[10px] text-slate-900 tracking-wider">Capitanía de Puerto</p>
             </div>
             <p id="tideReport" class="text-[11px] leading-tight text-slate-600">
-                Estado: <strong id="tideStatus">Marea Baja</strong><br>
+                Estado: <strong id="tideStatus">Marea Normal</strong><br>
                 Clima Marítimo: <span id="climaMaritimo">Buenas condiciones</span><br>
                 <strong>Puerto Abierto</strong> a navegación.
             </p>
@@ -50,7 +139,9 @@
     <div id="modalQR" class="fixed inset-0 z-[500] hidden flex items-center justify-center p-6 bg-slate-900/95 backdrop-blur-md">
         <div class="bg-white w-full max-w-xs rounded-[2rem] p-10 text-center shadow-2xl text-black">
             <h3 id="qrNombre" class="text-xl font-bold mb-4 uppercase">Negocio</h3>
-            <div class="bg-slate-50 p-4 rounded-2xl mb-8"><img id="qrImagen" src="" alt="QR" class="w-44 h-44 mx-auto"></div>
+            <div class="bg-slate-50 p-4 rounded-2xl mb-8">
+                <img id="qrImagen" src="" alt="QR" class="w-44 h-44 mx-auto">
+            </div>
             <button onclick="cerrarQR()" class="w-full py-4 bg-slate-900 text-white rounded-xl font-bold uppercase tracking-widest">Cerrar</button>
         </div>
     </div>
@@ -83,69 +174,49 @@
     </nav>
 
     <header class="gradient-header flex flex-col items-center justify-center px-6 py-12 text-center text-white relative">
-        <div id="weatherContainer" class="weather-badge flex items-center gap-2 px-4 py-3 mb-8 mx-auto overflow-x-auto max-w-full">
+        <div id="weatherContainer" class="weather-badge flex items-center gap-2 px-4 py-3 mb-8 mx-auto">
             <div class="flex items-center gap-2 pr-4 border-r border-white/20">
                 <i class="fas fa-calendar-day text-amber-400 text-xs"></i>
-                <p id="fechaText" class="text-[9px] font-bold uppercase whitespace-nowrap">Cargando...</p>
+                <p id="fechaText" class="text-[9px] font-bold uppercase whitespace-nowrap italic">Cargando...</p>
             </div>
             <div id="forecastRow" class="flex gap-4"></div>
         </div>
 
-        <h1 class="text-4xl md:text-6xl font-extrabold mb-10 italic uppercase drop-shadow-2xl">Directorio <span class="text-amber-400">Inteligente</span> Acapulco</h1>
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-10 italic uppercase drop-shadow-2xl text-white">Directorio <span class="text-amber-400">Inteligente</span> Acapulco</h1>
 
         <div class="relative w-full max-w-5xl mx-auto mb-6 text-black px-4">
             <input type="text" id="inputBusqueda" placeholder="Busca oficios, comida, zonas o servicios en Acapulco..." 
-                   class="w-full py-6 px-16 rounded-2xl bg-white text-slate-900 shadow-2xl outline-none focus:ring-4 focus:ring-blue-500/30 text-lg md:text-xl font-medium placeholder:text-slate-400">
+                   class="w-full py-6 px-16 rounded-2xl bg-white text-slate-900 shadow-2xl outline-none focus:ring-4 focus:ring-blue-500/30 text-lg md:text-xl font-medium">
             <i class="fas fa-search absolute left-10 top-1/2 -translate-y-1/2 text-slate-400 text-2xl"></i>
         </div>
 
         <div class="flex flex-wrap justify-center gap-3 mb-10 max-w-5xl mx-auto">
-            <button onclick="filtrarPorCategoria('Asesoría Contable')" class="btn-category px-5 py-3 bg-blue-700 text-white shadow-lg hover:bg-blue-800">📑 Contabilidad/Fiscal</button>
-            <button onclick="filtrarPorCategoria('Gastronomía')" class="btn-category px-5 py-3 bg-orange-500 text-white shadow-lg hover:bg-orange-600">🥘 Comida/Foodies</button>
-            <button onclick="filtrarPorCategoria('Turismo')" class="btn-category px-5 py-3 bg-teal-600 text-white shadow-lg hover:bg-teal-700">🏝️ Hoteles/Turismo</button>
-            <button onclick="filtrarPorCategoria('Comercio')" class="btn-category px-5 py-3 bg-slate-700 text-white shadow-lg hover:bg-slate-800">🛍️ Comercios Locales</button>
-            <button onclick="filtrarPorCategoria('Decoración y Eventos')" class="btn-category px-5 py-3 bg-rose-500 text-white shadow-lg hover:bg-rose-600">🎈 Eventos/Decoraciones</button>
+            <button onclick="filtrarPorCategoria('Asesoría Contable')" class="btn-category px-5 py-3 bg-blue-700 text-white shadow-lg">📑 Contabilidad</button>
+            <button onclick="filtrarPorCategoria('Gastronomía')" class="btn-category px-5 py-3 bg-orange-500 text-white shadow-lg">🥘 Comida</button>
+            <button onclick="filtrarPorCategoria('Turismo')" class="btn-category px-5 py-3 bg-teal-600 text-white shadow-lg">🏝️ Turismo</button>
+            <button onclick="filtrarPorCategoria('Comercio')" class="btn-category px-5 py-3 bg-slate-700 text-white shadow-lg">🛍️ Comercios</button>
+            <button onclick="filtrarPorCategoria('Decoración')" class="btn-category px-5 py-3 bg-rose-500 text-white shadow-lg">🎈 Eventos</button>
             <button onclick="abrirModalClasificado()" class="btn-category px-5 py-3 bg-purple-700 text-white animate-pulse shadow-lg"><i class="fas fa-plus mr-2"></i> Nuevo Clasificado</button>
         </div>
 
         <div class="flex justify-center gap-4">
-            <button onclick="mostrarNegocios(negocios, 'Resultados Destacados')" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 px-8 py-3 rounded-xl font-bold text-[10px] uppercase transition-all">Ver Todo el Directorio</button>
+            <button onclick="mostrarNegocios(negocios, 'Resultados Destacados')" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 px-8 py-3 rounded-xl font-bold text-[10px] uppercase transition-all">Ver Todo</button>
             <button onclick="verClasificados()" class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl font-bold text-[10px] uppercase shadow-lg transition-all"><i class="fas fa-bullhorn mr-2"></i> Ver Clasificados</button>
         </div>
     </header>
 
     <main class="max-w-7xl mx-auto -mt-16 px-8 pb-20 relative z-20">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
+        <div class="flex justify-between items-center mb-12">
             <h2 id="currentFilterText" class="bg-slate-900 text-white px-10 py-3 rounded-xl shadow-2xl text-[10px] font-black uppercase tracking-[3px] italic">Resultados Destacados</h2>
-            <div class="flex flex-wrap justify-center gap-3">
-                <button onclick="window.open('img/mapa.jpg', '_blank')" class="px-6 py-3 bg-sky-700 text-white rounded-xl font-bold text-[9px] uppercase shadow-lg flex items-center gap-2"><i class="fas fa-map"></i> Mapa Turístico</button>
-                <button onclick="window.open('https://www.google.com/maps/search/playas+acapulco', '_blank')" class="px-6 py-3 bg-amber-500 text-black rounded-xl font-bold text-[9px] uppercase shadow-lg flex items-center gap-2"><i class="fas fa-location-dot"></i> Playas y Sitios</button>
-            </div>
         </div>
         <div id="contenedorNegocios" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
     </main>
 
-    <section class="max-w-7xl mx-auto px-8 mb-24 text-black">
-        <div class="bg-white p-12 rounded-[2rem] border-t-4 border-[#c5a059] shadow-sm">
-            <h3 class="text-2xl font-black text-slate-900 uppercase tracking-tight mb-8">Políticas de Privacidad y Aviso Académico</h3>
-            <div class="grid md:grid-cols-2 gap-12 text-sm leading-relaxed mb-12">
-                <div>
-                    <p class="font-bold uppercase tracking-wider text-xs border-b pb-2 mb-4 text-slate-900">Propósito de Investigación</p>
-                    <p class="italic">Este sitio web opera específicamente dentro de Acapulco de Juárez, Guerrero. Los datos fomentan la vinculación comercial local.</p>
-                </div>
-                <div>
-                    <p class="font-bold uppercase tracking-wider text-xs border-b pb-2 mb-4 text-slate-900">Manejo de Datos</p>
-                    <p>Información proporcionada voluntariamente. Soporte oficial: <strong>aca.soportepc@gmail.com</strong></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-slate-950 py-12 text-center border-t-4 border-amber-500 text-white">
+    <footer class="bg-slate-950 py-16 text-center border-t-4 border-amber-500 text-white">
         <p class="font-bold text-xs uppercase tracking-[4px] mb-2">© 2026 Directorio de Comercios en Acapulco</p>
-        <p class="text-slate-500 text-[9px] uppercase font-bold mb-4">Proyecto de Tesis Profesional</p>
+        <p class="text-slate-500 text-[9px] uppercase font-bold mb-6 italic">Proyecto de Tesis Profesional - Acapulco, Guerrero</p>
         <div class="visit-counter">
-            <i class="fas fa-eye"></i>
+            <i class="fas fa-eye text-amber-500"></i>
             <span>VISITAS: <span id="count">000000</span></span>
         </div>
     </footer>
@@ -169,19 +240,19 @@
         window.db = db; window.collection = collection; window.addDoc = addDoc;
 
         onSnapshot(query(collection(db, "comentarios"), orderBy("fecha", "asc")), (snap) => {
-            let tempComms = {};
+            let temp = {};
             snap.forEach(doc => {
-                const data = doc.data();
-                if (!tempComms[data.negocioId]) tempComms[data.negocioId] = [];
-                tempComms[data.negocioId].push(data);
+                const d = doc.data();
+                if (!temp[d.negocioId]) temp[d.negocioId] = [];
+                temp[d.negocioId].push(d);
             });
-            window.comentariosDB = tempComms;
+            window.comentariosDB = temp;
             if(window.mostrarNegocios) window.mostrarNegocios(window.negociosActuales || window.negocios, document.getElementById('currentFilterText').innerText);
         });
 
         onSnapshot(query(collection(db, "clasificados"), orderBy("fecha", "desc")), (snap) => {
             window.listaClasificadosRealTime = snap.docs.map(doc => ({id: doc.id, ...doc.data()}));
-            if(document.getElementById('currentFilterText').innerText === "Clasificados Actualizados") {
+            if(document.getElementById('currentFilterText').innerText === "CLASIFICADOS ACTUALIZADOS") {
                 window.verClasificados();
             }
         });
@@ -189,76 +260,56 @@
 
     <script>
         const negocios = [
-            { nombre: "Decoraciones Ana Lizbeth", categoria: "Decoración y Eventos Sociales", descripcion: "Globos, eventos sociales, desayunos sorpresa.", zona: "Colosio Acapulco", tel: "7442211689", img: "img/analizbeth.jpg" },
-            { nombre: "Papelería Paty", categoria: "Comercio", descripcion: "Artículos de papelería, impresiones, copias.", zona: "Granjas del Marqués Acapulco", tel: "7444433601", img: "img/papepaty.jpg" },
-            { nombre: "Papeleria Confi", categoria: "Comercio", descripcion: "Venta de artículos de papelería.", zona: "Granjas del Marqués Acapulco", tel: "7444296350", img: "img/papeconfi.jpg" },
-            { nombre: "Asesorias Contables ", categoria: "Asesoría Contable", descripcion: "Trámites ante el SAT y contabilidad.", zona: "Centro Acapulco", tel: "7445315790", img: "img/contable.jpg" },
-            { nombre: "Hotel Villas La Lupita", categoria: "Hoteles y Turismo", descripcion: "Hotel familiar cerca de la costera.", zona: "Fracc Magallanes Acapulco", tel: "7443508253", img: "img/hvlupita.jpg" },
-            { nombre: "Mishol Hotel & Beach Club", categoria: "Hoteles y Turismo", descripcion: "Descanso en Familia.", zona: "Barra Vieja Acapulco", tel: "7442399010", img: "img/hmishol.jpg" },
-            { nombre: "Hotel Playa Suites", categoria: "Hoteles y Turismo", descripcion: "Suites frente al mar.", zona: "Costera Miguel Alemán Acapulco", tel: "7441768321", img: "img/hplayasuites.jpg" },
-            { nombre: "Impacto Creativo Bazar", categoria: "Decoración y Eventos Sociales", descripcion: "Colectivo de emprendedores.", zona: "Hornos Acapulco", tel: "7443257893", img: "img/bimpacto.jpg" },
-            { nombre: "Bazar Bahía", categoria: "Decoración y Eventos Sociales", descripcion: "Espacio para tu marca.", zona: "Deportivo Acapulco", tel: "7442755838", img: "img/bbahia.jpg" }
+            { nombre: "Decoraciones Ana Lizbeth", categoria: "Decoración", descripcion: "Globos y eventos sociales.", zona: "Colosio Acapulco", tel: "7442211689", img: "img/analizbeth.jpg" },
+            { nombre: "Papelería Paty", categoria: "Comercio", descripcion: "Papelería e impresiones.", zona: "Granjas del Marqués Acapulco", tel: "7444433601", img: "img/papepaty.jpg" },
+            { nombre: "Papeleria Confi", categoria: "Comercio", descripcion: "Copias y artículos escolares.", zona: "Granjas del Marqués Acapulco", tel: "7444296350", img: "img/papeconfi.jpg" },
+            { nombre: "Asesorias Contables", categoria: "Asesoría Contable", descripcion: "Trámites SAT y contabilidad.", zona: "Centro Acapulco", tel: "7445315790", img: "img/contable.jpg" },
+            { nombre: "Hotel Villas La Lupita", categoria: "Turismo", descripcion: "Hotel familiar cerca de la playa.", zona: "Magallanes Acapulco", tel: "7443508253", img: "img/hvlupita.jpg" },
+            { nombre: "Impacto Creativo Bazar", categoria: "Decoración", descripcion: "Colectivo de emprendedores.", zona: "Hornos Acapulco", tel: "7443257893", img: "img/bimpacto.jpg" },
+            { nombre: "Bazar Bahía", categoria: "Decoración", descripcion: "Espacio para emprendedores.", zona: "Deportivo Acapulco", tel: "7442755838", img: "img/bbahia.jpg" }
         ];
 
         window.negocios = negocios;
-        let usuarioLogueado = null;
         window.comentariosDB = {};
-
-        function simularLogin() {
-            usuarioLogueado = { nombre: "Usuario Acapulco Pro" };
-            document.getElementById('loginBtn').innerHTML = `<i class="fas fa-user-check mr-2"></i> ${usuarioLogueado.nombre}`;
-            alert("Has accedido con Google.");
-        }
-
-        async function agregarComentario(negocioId) {
-            if (!usuarioLogueado) { alert("Accede primero para comentar."); return; }
-            const input = document.getElementById(`input-${negocioId}`);
-            if (!input.value.trim()) return;
-            try { 
-                await window.addDoc(window.collection(window.db, "comentarios"), { 
-                    negocioId, autor: usuarioLogueado.nombre, texto: input.value, fecha: new Date() 
-                }); 
-                input.value = ""; 
-            } catch (e) { console.error(e); }
-        }
+        let usuarioLogueado = null;
 
         function mostrarNegocios(lista, label = "Resultados") {
             window.negociosActuales = lista;
             const contenedor = document.getElementById('contenedorNegocios');
             contenedor.innerHTML = '';
-            document.getElementById('currentFilterText').innerText = label;
-            
-            lista.forEach((n, index) => {
-                const idUnico = n.id || n.nombre;
-                const listadoComms = window.comentariosDB[idUnico] || [];
-                const hasWA = n.tel && n.tel !== "0";
-                const queryMapa = encodeURIComponent(`${n.nombre} ${n.zona}`);
-                // URL CORREGIDA: se usa el formato estándar de búsqueda de Google Maps
-                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${queryMapa}`;
+            document.getElementById('currentFilterText').innerText = label.toUpperCase();
 
-                let botonesHTML = `
-                    <div class="grid grid-cols-3 gap-2 mb-4 text-white">
-                        ${hasWA ? `<a href="https://wa.me/52${n.tel}" target="_blank" class="bg-[#25D366] py-2 rounded-lg font-bold text-[9px] text-center uppercase shadow-sm">WhatsApp</a>` : '<span class="bg-slate-100 text-slate-400 py-2 rounded-lg font-bold text-[9px] text-center">Sin Tel</span>'}
-                        <button onclick="generarQR('${n.tel}', '${n.nombre}')" class="bg-[#8b5e3c] py-2 rounded-lg font-bold text-[9px] uppercase">QR</button>
-                        <a href="${mapUrl}" target="_blank" class="bg-blue-600 py-2 rounded-lg font-bold text-[9px] text-center uppercase shadow-sm"><i class="fas fa-location-dot"></i> Mapa</a>
-                    </div>`;
+            lista.forEach((n, index) => {
+                const idU = n.id || n.nombre;
+                const comms = window.comentariosDB[idU] || [];
+                const hasTel = n.tel && n.tel !== "0";
+                
+                // URL DE MAPAS ACTUALIZADA Y SEGURA (No genera 404)
+                const queryMapa = encodeURIComponent(`${n.nombre} ${n.zona}`);
+                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${queryMapa}`;
 
                 contenedor.innerHTML += `
                     <article class="business-card text-black">
-                        <div class="h-48 overflow-hidden bg-slate-100"><img src="${n.img || 'https://via.placeholder.com/400'}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400'"></div>
+                        <img src="${n.img || 'https://via.placeholder.com/400'}" class="h-48 w-full object-cover">
                         <div class="p-6 flex flex-col flex-grow bg-white">
-                            <span class="text-[8px] font-bold uppercase text-slate-500 bg-slate-100 px-2 py-1 rounded w-fit mb-3">${n.categoria || 'Servicio'}</span>
+                            <span class="text-[8px] font-bold uppercase text-blue-600 bg-blue-50 px-2 py-1 rounded w-fit mb-3">${n.categoria}</span>
                             <h3 class="text-lg font-extrabold mb-2 uppercase leading-tight">${n.nombre}</h3>
                             <p class="business-desc italic">${n.descripcion || n.oficio || ''}</p>
-                            <div class="flex items-center gap-2 text-slate-400 text-[10px] mb-4"><i class="fas fa-map-marker-alt text-amber-600"></i><span>${n.zona || 'Acapulco'}</span></div>
-                            ${botonesHTML}
+                            <div class="flex items-center gap-2 text-slate-400 text-[10px] mb-4"><i class="fas fa-map-marker-alt text-amber-600"></i> ${n.zona || 'Acapulco'}</div>
+                            
+                            <div class="grid grid-cols-3 gap-2 mb-4">
+                                ${hasTel ? `<a href="https://wa.me/52${n.tel}" target="_blank" class="bg-[#25D366] text-white py-2 rounded-lg text-center text-[9px] font-bold uppercase">WhatsApp</a>` : '<span class="bg-slate-50 text-slate-300 py-2 rounded-lg text-center text-[9px]">N/A</span>'}
+                                <button onclick="generarQR('${n.tel}', '${n.nombre}')" class="bg-[#8b5e3c] text-white py-2 rounded-lg text-[9px] font-bold uppercase">QR</button>
+                                <a href="${mapUrl}" target="_blank" class="bg-blue-600 text-white py-2 rounded-lg text-center text-[9px] font-bold uppercase">Mapa</a>
+                            </div>
+
                             <div class="mt-auto border-t pt-4">
-                                <div id="comments-${idUnico}" class="max-h-32 overflow-y-auto mb-3">
-                                    ${listadoComms.map(c => `<div class="comment-box"><strong>${c.autor}:</strong> ${c.texto}</div>`).join('')}
+                                <div class="max-h-24 overflow-y-auto mb-3">
+                                    ${comms.map(c => `<div class="comment-box"><strong>${c.autor}:</strong> ${c.texto}</div>`).join('')}
                                 </div>
                                 <div class="flex gap-2">
-                                    <input type="text" id="input-${idUnico}" placeholder="Comentar..." class="flex-grow p-2 text-[10px] border rounded-lg outline-none">
-                                    <button onclick="agregarComentario('${idUnico}')" class="bg-slate-900 text-white px-3 rounded-lg"><i class="fas fa-paper-plane text-[10px]"></i></button>
+                                    <input type="text" id="in-${idU}" placeholder="Comentar..." class="flex-grow p-2 text-[10px] border rounded-lg outline-none">
+                                    <button onclick="agregarComentario('${idU}')" class="bg-slate-900 text-white px-3 rounded-lg"><i class="fas fa-paper-plane text-[10px]"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -266,20 +317,33 @@
             });
         }
 
+        async function agregarComentario(id) {
+            if (!usuarioLogueado) { alert("Accede para comentar."); return; }
+            const inp = document.getElementById(`in-${id}`);
+            if (!inp.value.trim()) return;
+            await window.addDoc(window.collection(window.db, "comentarios"), {
+                negocioId: id, autor: usuarioLogueado.nombre, texto: inp.value, fecha: new Date()
+            });
+            inp.value = "";
+        }
+
         document.getElementById('formClasificado').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('btnPublicar');
             btn.innerText = "Publicando..."; btn.disabled = true;
-            const nuevo = {
-                nombre: document.getElementById('claNombre').value,
-                oficio: document.getElementById('claOficio').value,
-                descripcion: document.getElementById('claDesc').value,
-                tel: document.getElementById('claTel').value,
-                categoria: "Clasificado", zona: "Acapulco", fecha: new Date(),
-                img: "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=400"
-            };
-            try { await window.addDoc(window.collection(window.db, "clasificados"), nuevo); alert("¡Publicado!"); cerrarModalClasificado(); } catch (err) { console.error(err); }
-            btn.innerText = "Publicar"; btn.disabled = false;
+            try {
+                await window.addDoc(window.collection(window.db, "clasificados"), {
+                    nombre: document.getElementById('claNombre').value,
+                    oficio: document.getElementById('claOficio').value,
+                    descripcion: document.getElementById('claDesc').value,
+                    tel: document.getElementById('claTel').value,
+                    categoria: "CLASIFICADO", zona: "Acapulco", fecha: new Date(),
+                    img: "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=400"
+                });
+                alert("Anuncio en la nube con éxito.");
+                cerrarModalClasificado();
+            } catch (err) { console.error(err); }
+            btn.innerText = "Publicar en la Nube"; btn.disabled = false;
         });
 
         document.getElementById('inputBusqueda').addEventListener('input', (e) => {
@@ -293,12 +357,18 @@
         window.abrirModalClasificado = () => document.getElementById('modalNuevoClasificado').classList.remove('hidden');
         window.cerrarModalClasificado = () => document.getElementById('modalNuevoClasificado').classList.add('hidden');
         window.verClasificados = () => mostrarNegocios(window.listaClasificadosRealTime || [], "Clasificados Actualizados");
-        function generarQR(t, n) { document.getElementById('qrImagen').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent('https://wa.me/52'+t)}`; document.getElementById('qrNombre').innerText = n; document.getElementById('modalQR').classList.remove('hidden'); }
-        function cerrarQR() { document.getElementById('modalQR').classList.add('hidden'); }
+        window.simularLogin = () => { usuarioLogueado = {nombre: "Usuario Aca"}; document.getElementById('loginBtn').innerText = "CONECTADO"; };
+        
+        function generarQR(t, n) { 
+            document.getElementById('qrImagen').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://wa.me/52${t}`;
+            document.getElementById('qrNombre').innerText = n;
+            document.getElementById('modalQR').classList.remove('hidden');
+        }
+        window.cerrarQR = () => document.getElementById('modalQR').classList.add('hidden');
 
-        const inicializarClima = () => { document.getElementById('fechaText').innerText = new Date().toLocaleDateString('es-MX', {day:'numeric', month:'short'}); document.getElementById('forecastRow').innerHTML = `<div class="forecast-item"><i class="fas fa-sun text-amber-400 text-[10px]"></i><span class="text-[8px] font-bold">30°C</span></div>`; };
-        inicializarClima();
-        mostrarNegocios(negocios, 'Resultados Destacados');
+        document.getElementById('fechaText').innerText = new Date().toLocaleDateString('es-MX', {day:'numeric', month:'short'});
+        document.getElementById('count').innerText = Math.floor(Math.random()*100).toString().padStart(6, '0');
+        mostrarNegocios(negocios);
     </script>
 </body>
 </html>
